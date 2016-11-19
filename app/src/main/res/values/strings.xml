@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">DictadosMusicales</string>
+    <string name="empezar_dictado">Fácil</string>
+    <string name="notas">Notas</string>
+</resources>
