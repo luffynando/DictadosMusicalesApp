@@ -64,18 +64,7 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-
-
-
-
-
-
-
-
-
-
-
-    //obtiene el Id segun la nota y regresa el id del recurso
+        //obtiene el Id segun la nota y regresa el id del recurso
     public int getnotaID(String nota)
     {
         if(nota.equals("b4"))
@@ -152,21 +141,22 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-   /* @Override
-    public void onPause()
-    {super.onPause();
-        bandPause=true;
-        mp.release();
-        finish();
 
-    }
 
-    @Override
+    /*@Override
     public void onResume()
     {super.onResume();
         mp= new MediaPlayer();
         bandPause=false;
-    }*/
+    }
+
+     @Override
+    public void onPause()
+    {   super.onPause();
+        Log.d("info"," pausado desde Main");
+    }
+
+    */
 
 
 }
