@@ -40,8 +40,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
+        this.setVolumeControlStream(AudioManager.STREAM_MUSIC);
         //ponemos a Android listo para ajustar el tipo de volumen de musica no te timbres
         //setVolumeControlStream(AudioManager.STREAM_MUSIC);
 
@@ -121,20 +120,9 @@ public class MainActivity extends AppCompatActivity {
 
         //  notasView=(TextView) findViewById(R.id.respuesta_dictado);
 
-        switch (keyCode) {
-            case KeyEvent.KEYCODE_VOLUME_UP:
-
-                Log.i("information", "en pausa");
-
-                return true;
-            case KeyEvent.KEYCODE_VOLUME_DOWN:
-
-                Log.i("information", "en pausa");
-
-                return true;
-            default:
-                return false;
-        }
+        if(keyCode==KeyEvent.KEYCODE_BACK)
+            finish();
+        return super.onKeyDown(keyCode, event);
     }
 
 
@@ -147,6 +135,7 @@ public class MainActivity extends AppCompatActivity {
         switch (action) {
             case (MotionEvent.ACTION_DOWN): {
                     MediaPlayer mp= new MediaPlayer();
+                    mp.reset();
                     mp= MediaPlayer.create(MainActivity.this,R.raw.a5);
                     mp.start();
             }return(true);
@@ -155,6 +144,9 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
+
+
     /*@Override
     public void onResume()
     {super.onResume();
