@@ -1,19 +1,19 @@
 package com.example.misa.dictadosmusicales;
 
-import android.app.IntentService;
-import android.app.NotificationManager;
+
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
 import android.media.AudioManager;
 import android.os.Binder;
-import android.os.Bundle;
-import android.os.Handler;
 import android.os.IBinder;
 import android.util.Log;
-import android.view.View;
+
 import android.widget.TextView;
-import android.widget.Toast;
+
 import android.media.MediaPlayer;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -24,6 +24,8 @@ import java.util.ArrayList;
 
 public class ReproducingService extends Service {
 
+    public final static String RESPUESTA = "com.example.misa.dictadosmusicales.RESPUESTA";
+
     // Binder given to clients
     private IBinder mBinder;
     DictadoFacil df;
@@ -32,7 +34,7 @@ public class ReproducingService extends Service {
     MediaPlayer mp;
     boolean bandReproduce;
     DictadoDificil dd;
-
+    static boolean dictadoTerminado;
 
 
 
@@ -57,9 +59,9 @@ public class ReproducingService extends Service {
     }
 
 
-    public void generaDictadoDificil(TextView view)
-    {
-
+    public String generaDictadoDificil(TextView view)
+    {mp= new MediaPlayer();
+        mp.setAudioStreamType(AudioManager.STREAM_MUSIC);
 
         //generamos objeto de la clase  DictadoFacil que generará los dictados para el nivel facil
         dd= new DictadoDificil();
@@ -71,7 +73,7 @@ public class ReproducingService extends Service {
         //buffer donde almacenamos las notas generadas del StringList
         text= new StringBuffer();
         //generamos el dictado
-        dictado=dd.generaDictado(20);
+        dictado=dd.generaDictado(5);
 
         int index=0;
         while(index<dictado.size())
@@ -87,15 +89,18 @@ public class ReproducingService extends Service {
         //soltamos el recurso mp
         mp.release();
         //escribimos las notas en el TextView
-        view.setText(text.toString());
+        Intent i = new Intent("PlayingActivity");
+        i.putExtra(RESPUESTA,text.toString());
+        sendBroadcast(i);
+        return(text.toString());
 
     }
 
 
-    public void generaDictadoFacil(TextView textView)
+    public String generaDictadoFacil(TextView textView, Context context)
     {
-        mp= new MediaPlayer();
-        mp.setAudioStreamType(AudioManager.STREAM_MUSIC);
+
+
 
 
         Log.d("info"," en el servicio");
@@ -109,16 +114,12 @@ public class ReproducingService extends Service {
         //buffer donde almacenamos las notas generadas del StringList
         text= new StringBuffer();
         //generamos el dictado
-        dictado=df.generaDictado(20);
+        dictado=df.generaDictado(5);
         bandReproduce=true;
         int index=0;
         while(index<dictado.size())
         {
-            if(!bandReproduce) {
-                mp.release();
-                mp=null;
-                return;
-            }
+
             //pasamos las Notas a String
             text.append(dictado.get(index));
             //llamo a función que encuentra los ID del raw segun su nombre
@@ -131,7 +132,12 @@ public class ReproducingService extends Service {
         mp.release();
         //escribimos las notas en el TextView
 
-        textView.setText(text.toString());
+        Intent i = new Intent("PlayingActivity");
+
+        i.putExtra(RESPUESTA,text.toString());
+
+        sendBroadcast(i);
+        return text.toString();
     }
 
     public int getnotaID(String nota)
@@ -189,15 +195,23 @@ public class ReproducingService extends Service {
 
 
         mp = MediaPlayer.create(ReproducingService.this, recurso);
+        int aux = 0;
+        try {
+            mp.start();
 
+            while (mp.getDuration() > aux) {
+                aux = mp.getCurrentPosition();
+            }
 
-        mp.start();
-        int aux=0;
-        while(mp.getDuration()>aux)
+        }catch(IllegalStateException e){
+            mp.release();
+            stopSelf();
+            }
+        if(mp!=null)
         {
-        aux=mp.getCurrentPosition();
+            mp.release();
         }
-        aux=0;
+
     }
 
     public void notaDeReferencia()
@@ -213,8 +227,10 @@ public class ReproducingService extends Service {
             mp.release();
             mp = null;
         }
+
         bandReproduce=false;
             stopSelf();
+
     }
 
 

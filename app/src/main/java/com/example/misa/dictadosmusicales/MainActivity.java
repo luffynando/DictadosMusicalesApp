@@ -12,10 +12,12 @@ import android.media.SoundPool;
 import android.os.Build;
 import android.os.Debug;
 import android.os.Handler;
+import android.support.v4.view.MotionEventCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
 import java.lang.StringBuffer;
@@ -46,102 +48,88 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //cuando usario presiona el boton empezar se llama este metedo
-    public void actionButtonFacil(View view)
-    {
-       Intent intent = new Intent(this, PlayingActivity.class);
-        String message=getResources().getString(R.string.facil);
-
-        intent.putExtra(EXTRA_MESSAGE, message);
-        startActivity(intent);
-
-    }
-
-    public void actionButtonDificil(View view)
-    {
+    public void actionButtonFacil(View view) {
         Intent intent = new Intent(this, PlayingActivity.class);
-        String message=getResources().getString(R.string.dificil);
+        String message = getResources().getString(R.string.facil);
+
+        intent.putExtra(EXTRA_MESSAGE, message);
+        startActivity(intent);
+
+    }
+
+    public void actionButtonDificil(View view) {
+        Intent intent = new Intent(this, PlayingActivity.class);
+        String message = getResources().getString(R.string.dificil);
         intent.putExtra(EXTRA_MESSAGE, message);
         startActivity(intent);
     }
-
-
-
-
-
-
-
-
-
-
-
 
     //obtiene el Id segun la nota y regresa el id del recurso
-    public int getnotaID(String nota)
-    {
-        if(nota.equals("b4"))
-            return(R.raw.b4);
-        if(nota.equals("c5"))
-            return(R.raw.c5);
-        if(nota.equals("d5"))
-            return(R.raw.d5);
-        if(nota.equals("e5"))
-            return(R.raw.e5);
-        if(nota.equals("f5"))
-            return(R.raw.f5);
-        if(nota.equals("g5"))
-            return(R.raw.g5);
-        if(nota.equals("a5"))
-            return(R.raw.a5);
-        if(nota.equals("b5"))
-            return(R.raw.b5);
-        if(nota.equals("c6"))
-            return(R.raw.c6);
-        if(nota.equals("d6"))
-            return(R.raw.d6);
-        if(nota.equals("e6"))
-            return(R.raw.e6);
-        if(nota.equals("f6"))
-            return(R.raw.f6);
-        if(nota.equals("g6"))
-            return(R.raw.g6);
-        if(nota.equals("a6"))
-            return(R.raw.a6);
-        if(nota.equals("cs5"))
-            return(R.raw.cs5);
-        if(nota.equals("ds5"))
-            return(R.raw.ds5);
-        if(nota.equals("fs5"))
-            return(R.raw.fs5);
-        if(nota.equals("gs5"))
-            return(R.raw.gs5);
-        if(nota.equals("as5"))
-            return(R.raw.as5);
-        if(nota.equals("cs6"))
-            return(R.raw.cs6);
-        if(nota.equals("ds6"))
-            return(R.raw.ds6);
-        if(nota.equals("fs6"))
-            return(R.raw.fs6);
-        if(nota.equals("gs6"))
-            return(R.raw.gs6);
-        return(-1);
+    public int getnotaID(String nota) {
+        if (nota.equals("b4"))
+            return (R.raw.b4);
+        if (nota.equals("c5"))
+            return (R.raw.c5);
+        if (nota.equals("d5"))
+            return (R.raw.d5);
+        if (nota.equals("e5"))
+            return (R.raw.e5);
+        if (nota.equals("f5"))
+            return (R.raw.f5);
+        if (nota.equals("g5"))
+            return (R.raw.g5);
+        if (nota.equals("a5"))
+            return (R.raw.a5);
+        if (nota.equals("b5"))
+            return (R.raw.b5);
+        if (nota.equals("c6"))
+            return (R.raw.c6);
+        if (nota.equals("d6"))
+            return (R.raw.d6);
+        if (nota.equals("e6"))
+            return (R.raw.e6);
+        if (nota.equals("f6"))
+            return (R.raw.f6);
+        if (nota.equals("g6"))
+            return (R.raw.g6);
+        if (nota.equals("a6"))
+            return (R.raw.a6);
+        if (nota.equals("cs5"))
+            return (R.raw.cs5);
+        if (nota.equals("ds5"))
+            return (R.raw.ds5);
+        if (nota.equals("fs5"))
+            return (R.raw.fs5);
+        if (nota.equals("gs5"))
+            return (R.raw.gs5);
+        if (nota.equals("as5"))
+            return (R.raw.as5);
+        if (nota.equals("cs6"))
+            return (R.raw.cs6);
+        if (nota.equals("ds6"))
+            return (R.raw.ds6);
+        if (nota.equals("fs6"))
+            return (R.raw.fs6);
+        if (nota.equals("gs6"))
+            return (R.raw.gs6);
+        return (-1);
     }
 
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
 
-     //  notasView=(TextView) findViewById(R.id.respuesta_dictado);
+        //  notasView=(TextView) findViewById(R.id.respuesta_dictado);
 
         switch (keyCode) {
             case KeyEvent.KEYCODE_VOLUME_UP:
 
-                    Log.i("information","en pausa");
+                Log.i("information", "en pausa");
 
                 return true;
             case KeyEvent.KEYCODE_VOLUME_DOWN:
 
-                    Log.i("information","en pausa");
+                Log.i("information", "en pausa");
 
                 return true;
             default:
@@ -150,23 +138,37 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        // TODO Auto-generated method stub
 
+        int action = MotionEventCompat.getActionMasked(event);
 
-   /* @Override
-    public void onPause()
-    {super.onPause();
-        bandPause=true;
-        mp.release();
-        finish();
+        switch (action) {
+            case (MotionEvent.ACTION_DOWN): {
+                    MediaPlayer mp= new MediaPlayer();
+                    mp= MediaPlayer.create(MainActivity.this,R.raw.a5);
+                    mp.start();
+            }return(true);
+        }
+        return super.onTouchEvent(event);
+
 
     }
-
-    @Override
+    /*@Override
     public void onResume()
     {super.onResume();
         mp= new MediaPlayer();
         bandPause=false;
-    }*/
+    }
+
+     @Override
+    public void onPause()
+    {   super.onPause();
+        Log.d("info"," pausado desde Main");
+    }
+
+    */
 
 
 }
