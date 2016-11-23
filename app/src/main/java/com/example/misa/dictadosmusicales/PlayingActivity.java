@@ -26,6 +26,7 @@ public class PlayingActivity extends AppCompatActivity {
     MediaPlayer mp;
     String message;
     TextView textView;
+    boolean reproduciendo;
 
    ReproducingService mService;
     boolean mBound = false;
@@ -44,6 +45,7 @@ public class PlayingActivity extends AppCompatActivity {
         textView.setText(getResources().getString(R.string.toque_para_rep));
         setVolumeControlStream(AudioManager.STREAM_MUSIC);
         mService=new ReproducingService();
+        reproduciendo=false;
 
 
 
@@ -77,12 +79,28 @@ public class PlayingActivity extends AppCompatActivity {
 
                 String dificultad= getResources().getString(R.string.texto_dificultad);
                 textView.setText(dificultad+" "+message);
-                if (mBound) {
+                if (mBound && reproduciendo==false) {
+                                reproduciendo=true;
+                                Log.d("info", message);
+                                if( message.compareTo("Fácil")==0 ) {
+                                    new Thread(new Runnable() {
+                                        public void run() {
+                                            Log.d("info","ejecutando hilo facil");
+                                          textView.setText(mService.generaDictadoFacil(textView));
+                                        }
+                                    }).start();
+                                    Log.d("info", "despues del generaDictadoFacil");
 
-                                if(message.equals(R.string.facil))
-                                  mService.generaDictadoFacil(textView);
-                                else
-                                    mService.generaDictadoDificil(textView);
+                                }
+                                else{
+                                    new Thread(new Runnable() {
+                                        public void run() {
+                                            Log.d("info","ejecutando hilo dificil");
+                                            textView.setText( mService.generaDictadoDificil(textView));
+                                        }
+                                    }).start();
+                                }
+
 
                 }
             }   return true;
@@ -109,10 +127,14 @@ public class PlayingActivity extends AppCompatActivity {
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_HOME) {
             this.stopServices();
+            Intent principal= new Intent(this,MainActivity.class);
+            startActivity(principal);
         }
         if(keyCode==KeyEvent.KEYCODE_BACK)
         {
             this.stopServices();
+            Intent principal= new Intent(this,MainActivity.class);
+            startActivity(principal);
         }
         return super.onKeyDown(keyCode,event);
     }
@@ -166,14 +188,17 @@ public class PlayingActivity extends AppCompatActivity {
 
     @Override
     public void onStop()
-    {
-        super.onStop();
+    {   super.onStop();
+
+        Log.d("info", "servicio parado");
         stopServices();
         mService.onDestroy();
     }
 
     public void actionButtonStop (View view)
-    {
+    { Log.d("info","parando dictado");
         mService.stopSelf();
+        mService.onDestroy();
+        reproduciendo=false;
     }
 }

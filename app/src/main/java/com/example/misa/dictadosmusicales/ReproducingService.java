@@ -1,18 +1,15 @@
 package com.example.misa.dictadosmusicales;
 
-import android.app.IntentService;
-import android.app.NotificationManager;
+
 import android.app.Service;
 import android.content.Intent;
 import android.media.AudioManager;
 import android.os.Binder;
-import android.os.Bundle;
-import android.os.Handler;
 import android.os.IBinder;
 import android.util.Log;
-import android.view.View;
+
 import android.widget.TextView;
-import android.widget.Toast;
+
 import android.media.MediaPlayer;
 
 import java.util.ArrayList;
@@ -32,7 +29,7 @@ public class ReproducingService extends Service {
     MediaPlayer mp;
     boolean bandReproduce;
     DictadoDificil dd;
-
+    static boolean dictadoTerminado;
 
 
 
@@ -57,9 +54,9 @@ public class ReproducingService extends Service {
     }
 
 
-    public void generaDictadoDificil(TextView view)
-    {
-
+    public String generaDictadoDificil(TextView view)
+    {mp= new MediaPlayer();
+        mp.setAudioStreamType(AudioManager.STREAM_MUSIC);
 
         //generamos objeto de la clase  DictadoFacil que generará los dictados para el nivel facil
         dd= new DictadoDificil();
@@ -87,15 +84,15 @@ public class ReproducingService extends Service {
         //soltamos el recurso mp
         mp.release();
         //escribimos las notas en el TextView
-        view.setText(text.toString());
+        return(text.toString());
 
     }
 
 
-    public void generaDictadoFacil(TextView textView)
+    public String generaDictadoFacil(TextView textView)
     {
-        mp= new MediaPlayer();
-        mp.setAudioStreamType(AudioManager.STREAM_MUSIC);
+
+
 
 
         Log.d("info"," en el servicio");
@@ -114,11 +111,7 @@ public class ReproducingService extends Service {
         int index=0;
         while(index<dictado.size())
         {
-            if(!bandReproduce) {
-                mp.release();
-                mp=null;
-                return;
-            }
+
             //pasamos las Notas a String
             text.append(dictado.get(index));
             //llamo a función que encuentra los ID del raw segun su nombre
@@ -131,7 +124,7 @@ public class ReproducingService extends Service {
         mp.release();
         //escribimos las notas en el TextView
 
-        textView.setText(text.toString());
+        return text.toString();
     }
 
     public int getnotaID(String nota)
@@ -189,15 +182,19 @@ public class ReproducingService extends Service {
 
 
         mp = MediaPlayer.create(ReproducingService.this, recurso);
+        int aux = 0;
+        try {
+            mp.start();
 
+            while (mp.getDuration() > aux) {
+                aux = mp.getCurrentPosition();
+            }
 
-        mp.start();
-        int aux=0;
-        while(mp.getDuration()>aux)
-        {
-        aux=mp.getCurrentPosition();
-        }
-        aux=0;
+        }catch(IllegalStateException e){
+            mp.release();
+            stopSelf();
+            }
+
     }
 
     public void notaDeReferencia()
