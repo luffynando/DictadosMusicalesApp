@@ -89,6 +89,18 @@ public class Nota {
 
 
 
+    public Nota eligeNotaSiguienteDifcil(int numNotasPosibles)
+    { Random rnd= new Random();
+        //elegimos nota al azar dentro del rango de notas posibles-1 para que sea una posicion dentro del array
+        aux=(int) (rnd.nextDouble()*numNotasPosibles-1);
+
+        return(notasPosibles.get(aux));
+
+    }
+
+
+
+
 }
 
 

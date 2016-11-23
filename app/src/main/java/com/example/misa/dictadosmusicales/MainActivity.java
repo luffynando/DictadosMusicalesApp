@@ -1,76 +1,81 @@
 package com.example.misa.dictadosmusicales;
 
 
+import android.annotation.TargetApi;
+import android.content.Context;
+import android.content.Intent;
+import android.media.AudioAttributes;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
 
+import android.media.SoundPool;
+import android.os.Build;
+import android.os.Debug;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.TextView;
 import java.lang.StringBuffer;
 
 import java.util.ArrayList;
 
+
+
+
 public class MainActivity extends AppCompatActivity {
 
-    public int button_band;
+    public final static String EXTRA_MESSAGE = "com.example.misa.dictadosmusicales.MESSAGE";
 
 
-
-    MediaPlayer mp;
+    //clase para generar dictado facil
+    DictadoDificil dd;
+    boolean bandPause;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mp= new MediaPlayer();
 
-        button_band=0;
 
+        //ponemos a Android listo para ajustar el tipo de volumen de musica no te timbres
+        //setVolumeControlStream(AudioManager.STREAM_MUSIC);
 
     }
 
     //cuando usario presiona el boton empezar se llama este metedo
-    public void generaDictado(View view)
-    {       button_band++;
-        //verificamos que si se presiona mientras reproduce dictado no se genere otro dictado
-        if(button_band>1)
-            return;
-        //generamos objeto de la clase  DictadoFacil que generará los dictados para el nivel facil
-        DictadoFacil df= new DictadoFacil();
-        //creamos un arrayList de string que guardará la sucesion de notas del dictado
-        //mandamos el número de notas que contendrá el dictado
-        ArrayList<String> dictado;
+    public void actionButtonFacil(View view)
+    {
+       Intent intent = new Intent(this, PlayingActivity.class);
+        String message=getResources().getString(R.string.facil);
 
-        //encontramos el TextView para poner las notas del dictado
-        TextView notasView=(TextView) findViewById(R.id.texto);
+        intent.putExtra(EXTRA_MESSAGE, message);
+        startActivity(intent);
 
-        //buffer donde almacenamos las notas generadas del StringList
-        StringBuffer text= new StringBuffer();
-        //generamos el dictado
-        dictado=df.generaDictado(20);
+    }
 
-        int index=0;
-        while(index<dictado.size())
-        {
-            //pasamos las Notas a String
-            text.append(dictado.get(index));
-            //llamo a función que encuentra los ID del raw segun su nombre
-            //a su vez llamo al metodo que reproduce el sonido segun la nota
-            this.audioPlayer( this.getnotaID(dictado.get(index)  ));
-            text.append(",");
-            index++;
-        }
-        //soltamos el recurso mp
-        mp.release();
-        //escribimos las notas en el TextView
-        notasView.setText(text.toString());
-        button_band=0;
-
+    public void actionButtonDificil(View view)
+    {
+        Intent intent = new Intent(this, PlayingActivity.class);
+        String message=getResources().getString(R.string.dificil);
+        intent.putExtra(EXTRA_MESSAGE, message);
+        startActivity(intent);
     }
 
 
 
+
+
+
+
+
+
+
+
+
+    //obtiene el Id segun la nota y regresa el id del recurso
     public int getnotaID(String nota)
     {
         if(nota.equals("b4"))
@@ -99,28 +104,69 @@ public class MainActivity extends AppCompatActivity {
             return(R.raw.f6);
         if(nota.equals("g6"))
             return(R.raw.g6);
+        if(nota.equals("a6"))
+            return(R.raw.a6);
+        if(nota.equals("cs5"))
+            return(R.raw.cs5);
+        if(nota.equals("ds5"))
+            return(R.raw.ds5);
+        if(nota.equals("fs5"))
+            return(R.raw.fs5);
+        if(nota.equals("gs5"))
+            return(R.raw.gs5);
+        if(nota.equals("as5"))
+            return(R.raw.as5);
+        if(nota.equals("cs6"))
+            return(R.raw.cs6);
+        if(nota.equals("ds6"))
+            return(R.raw.ds6);
+        if(nota.equals("fs6"))
+            return(R.raw.fs6);
+        if(nota.equals("gs6"))
+            return(R.raw.gs6);
         return(-1);
     }
 
 
-    public void audioPlayer(int recurso){
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+
+     //  notasView=(TextView) findViewById(R.id.respuesta_dictado);
+
+        switch (keyCode) {
+            case KeyEvent.KEYCODE_VOLUME_UP:
+
+                    Log.i("information","en pausa");
+
+                return true;
+            case KeyEvent.KEYCODE_VOLUME_DOWN:
+
+                    Log.i("information","en pausa");
+
+                return true;
+            default:
+                return false;
+        }
+    }
 
 
-        mp = MediaPlayer.create(MainActivity.this, recurso);
-           try {
-
-                    mp.start();
-               while(mp.isPlaying())
-               {
-
-               }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
 
 
+   /* @Override
+    public void onPause()
+    {super.onPause();
+        bandPause=true;
+        mp.release();
+        finish();
 
     }
+
+    @Override
+    public void onResume()
+    {super.onResume();
+        mp= new MediaPlayer();
+        bandPause=false;
+    }*/
 
 
 }
