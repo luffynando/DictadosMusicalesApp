@@ -1,9 +1,11 @@
 package com.example.misa.dictadosmusicales;
 
+import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 
+import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
@@ -26,7 +28,7 @@ public class PlayingActivity extends AppCompatActivity {
     MediaPlayer mp;
     String message;
     TextView textView;
-    boolean reproduciendo;
+    int reproduciendo;
 
    ReproducingService mService;
     boolean mBound = false;
@@ -45,11 +47,22 @@ public class PlayingActivity extends AppCompatActivity {
         textView.setText(getResources().getString(R.string.toque_para_rep));
         setVolumeControlStream(AudioManager.STREAM_MUSIC);
         mService=new ReproducingService();
-        reproduciendo=false;
+        reproduciendo=0;
 
+        registerReceiver(uiUpdated, new IntentFilter("PlayingActivity"));
 
 
     }
+
+    private BroadcastReceiver uiUpdated= new BroadcastReceiver() {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            Log.d("info", "recibido");
+            textView.setText(intent.getStringExtra(ReproducingService.RESPUESTA));
+
+        }
+    };
 
 
     @Override
@@ -79,14 +92,15 @@ public class PlayingActivity extends AppCompatActivity {
 
                 String dificultad= getResources().getString(R.string.texto_dificultad);
                 textView.setText(dificultad+" "+message);
-                if (mBound && reproduciendo==false) {
-                                reproduciendo=true;
+                if (mBound && reproduciendo==0) {
+                                reproduciendo=1;
                                 Log.d("info", message);
                                 if( message.compareTo("Fácil")==0 ) {
                                     new Thread(new Runnable() {
                                         public void run() {
                                             Log.d("info","ejecutando hilo facil");
-                                          textView.setText(mService.generaDictadoFacil(textView));
+                                          mService.generaDictadoFacil(textView, getApplicationContext());
+                                            reproduciendo=0;
                                         }
                                     }).start();
                                     Log.d("info", "despues del generaDictadoFacil");
@@ -96,7 +110,8 @@ public class PlayingActivity extends AppCompatActivity {
                                     new Thread(new Runnable() {
                                         public void run() {
                                             Log.d("info","ejecutando hilo dificil");
-                                            textView.setText( mService.generaDictadoDificil(textView));
+                                              mService.generaDictadoDificil(textView);
+                                            reproduciendo=0;
                                         }
                                     }).start();
                                 }
@@ -135,6 +150,7 @@ public class PlayingActivity extends AppCompatActivity {
             this.stopServices();
             Intent principal= new Intent(this,MainActivity.class);
             startActivity(principal);
+
         }
         return super.onKeyDown(keyCode,event);
     }
@@ -147,7 +163,7 @@ public class PlayingActivity extends AppCompatActivity {
         if (mBound) {
             getApplicationContext().unbindService(mConnection);
             Intent i = new Intent(this, ReproducingService.class);
-            stopService(i);
+            mService.stopSelf();
             mBound = false;
         }
 
@@ -199,6 +215,12 @@ public class PlayingActivity extends AppCompatActivity {
     { Log.d("info","parando dictado");
         mService.stopSelf();
         mService.onDestroy();
-        reproduciendo=false;
+        reproduciendo=0;
+    }
+
+    @Override
+    public void onDestroy()
+    {   super.onDestroy();
+        unregisterReceiver(uiUpdated);
     }
 }

@@ -2,6 +2,7 @@ package com.example.misa.dictadosmusicales;
 
 
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
 import android.media.AudioManager;
 import android.os.Binder;
@@ -12,6 +13,8 @@ import android.widget.TextView;
 
 import android.media.MediaPlayer;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 
 
@@ -20,6 +23,8 @@ import java.util.ArrayList;
  */
 
 public class ReproducingService extends Service {
+
+    public final static String RESPUESTA = "com.example.misa.dictadosmusicales.RESPUESTA";
 
     // Binder given to clients
     private IBinder mBinder;
@@ -68,7 +73,7 @@ public class ReproducingService extends Service {
         //buffer donde almacenamos las notas generadas del StringList
         text= new StringBuffer();
         //generamos el dictado
-        dictado=dd.generaDictado(20);
+        dictado=dd.generaDictado(5);
 
         int index=0;
         while(index<dictado.size())
@@ -84,12 +89,15 @@ public class ReproducingService extends Service {
         //soltamos el recurso mp
         mp.release();
         //escribimos las notas en el TextView
+        Intent i = new Intent("PlayingActivity");
+        i.putExtra(RESPUESTA,text.toString());
+        sendBroadcast(i);
         return(text.toString());
 
     }
 
 
-    public String generaDictadoFacil(TextView textView)
+    public String generaDictadoFacil(TextView textView, Context context)
     {
 
 
@@ -106,7 +114,7 @@ public class ReproducingService extends Service {
         //buffer donde almacenamos las notas generadas del StringList
         text= new StringBuffer();
         //generamos el dictado
-        dictado=df.generaDictado(20);
+        dictado=df.generaDictado(5);
         bandReproduce=true;
         int index=0;
         while(index<dictado.size())
@@ -124,6 +132,11 @@ public class ReproducingService extends Service {
         mp.release();
         //escribimos las notas en el TextView
 
+        Intent i = new Intent("PlayingActivity");
+
+        i.putExtra(RESPUESTA,text.toString());
+
+        sendBroadcast(i);
         return text.toString();
     }
 
@@ -194,6 +207,10 @@ public class ReproducingService extends Service {
             mp.release();
             stopSelf();
             }
+        if(mp!=null)
+        {
+            mp.release();
+        }
 
     }
 
@@ -210,8 +227,10 @@ public class ReproducingService extends Service {
             mp.release();
             mp = null;
         }
+
         bandReproduce=false;
             stopSelf();
+
     }
 
 

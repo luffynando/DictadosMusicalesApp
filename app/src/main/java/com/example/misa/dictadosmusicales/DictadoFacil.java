@@ -67,7 +67,7 @@ public class DictadoFacil {
         //System.out.println("nota inicial "+ dictado.get(0).getName());
         dictadoString.add(dictado.get(0).getName());
         int aux=1;
-        while(dictado.size()<20)
+        while(dictado.size()<numNotas)
         {
             dictado.add(dictado.get(aux-1).eligeNotaSiguiente());
             dictadoString.add(dictado.get(aux).getName());
