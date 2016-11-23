@@ -215,6 +215,8 @@ public class PlayingActivity extends AppCompatActivity {
     { Log.d("info","parando dictado");
         mService.stopSelf();
         mService.onDestroy();
+        Intent  intent =new Intent(this, MainActivity.class);
+        startActivity(intent);
         reproduciendo=0;
     }
 
