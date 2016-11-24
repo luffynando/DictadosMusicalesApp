@@ -33,7 +33,6 @@ public class Nota {
         for(int i=0;i<notasPosibles.length;i++)
         { //agregamos la nota posible al arrayList
             this.notasPosibles.add(notasPosibles[i]);
-            //System.out.println("Agregando Nota Posible:"+ notasPosibles[i].name+" a nota "+this.name);
         }
 
 
@@ -50,9 +49,11 @@ public class Nota {
     }
 
 
-    //metodo que elige la nota siguiente en el dictado
+    //metodo que elige la nota siguiente en el dictado fácil
     public Nota eligeNotaSiguiente()
     {
+
+        //random para generar nota siguiente
         Random rnd= new Random();
         //casteamos el aleatorio y lo ponemos en un rango de 0 a 100
         //para hacer más amplio el rango de cambio de notas
