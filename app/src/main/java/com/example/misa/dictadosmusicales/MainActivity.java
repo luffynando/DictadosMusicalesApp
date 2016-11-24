@@ -20,6 +20,8 @@ import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import java.lang.StringBuffer;
 
 import java.util.ArrayList;
@@ -35,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
     //clase para generar dictado facil
     DictadoDificil dd;
     boolean bandPause;
+    private Boolean exit = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,15 +119,23 @@ public class MainActivity extends AppCompatActivity {
 
 
     @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
+    public void onBackPressed() {
+        if (exit) {
+            finish(); // finish activity
+        } else {
+            Toast.makeText(this, getString(R.string.salir),
+                    Toast.LENGTH_SHORT).show();
+            exit = true;
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    exit = false;
+                }
+            }, 3 * 1000);
 
-        //  notasView=(TextView) findViewById(R.id.respuesta_dictado);
+        }
 
-        if(keyCode==KeyEvent.KEYCODE_BACK)
-            finish();
-        return super.onKeyDown(keyCode, event);
     }
-
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {

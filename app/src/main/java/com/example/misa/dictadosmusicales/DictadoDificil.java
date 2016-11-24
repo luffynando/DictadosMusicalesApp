@@ -7,7 +7,7 @@ package com.example.misa.dictadosmusicales;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class DictadoDificil {
+public class DictadoDificil extends Dictado{
 
 
     Nota b4,c5,d5,e5,f5,g5,a5,b5,c6,d6,e6,f6,g6,a6;
@@ -15,10 +15,10 @@ public class DictadoDificil {
     Nota[] notasPosibles;
 
     int numNotasPosibles=24;
-    ArrayList<String> dictadoString;
+    //ArrayList<String> dictadoString;
 
     public DictadoDificil()
-    {
+    {super();
         //inicialicamos el array ahora inicialicamos el array con una variable final
         //para así sea fácil modificar el número de elementos posibles en el dictado
         notasPosibles= new Nota[ numNotasPosibles];
@@ -116,6 +116,16 @@ public class DictadoDificil {
 
         //retornamos la primera nota
         return(notasPosibles[aux]);
+    }
+
+    public ArrayList<String> getDictadoString()
+    {
+        return(dictadoString);
+    }
+
+    public void setDictadoString(ArrayList<String> dictadoString)
+    {
+        this.dictadoString=dictadoString;
     }
 
 
