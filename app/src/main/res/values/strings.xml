@@ -8,5 +8,7 @@
     <string name="stop">Parar Dictado</string>
     <string name="respuesta_dictado"></string>
     <string name="nota_referencia">Presione la pantalla para escuchar A5</string>
+    <string name="salir">Presiona atrás otra vez para salir</string>
+    <string name="repetir">Repetir</string>
 <string name="service">servicio</string>
 </resources>

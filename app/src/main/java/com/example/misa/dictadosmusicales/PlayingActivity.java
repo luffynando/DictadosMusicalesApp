@@ -9,7 +9,7 @@ import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
-import android.os.Handler;
+import android.os.AsyncTask;
 import android.os.IBinder;
 import android.support.v4.view.MotionEventCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -20,7 +20,10 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
+
 
 public class PlayingActivity extends AppCompatActivity {
 
@@ -28,10 +31,12 @@ public class PlayingActivity extends AppCompatActivity {
     MediaPlayer mp;
     String message;
     TextView textView;
+    RepDictAsync reproduceDictad;
     int reproduciendo;
+   static  Dictado d;
+    static boolean bandRepetir;
 
-   ReproducingService mService;
-    boolean mBound = false;
+
 
 
     @Override
@@ -46,33 +51,23 @@ public class PlayingActivity extends AppCompatActivity {
         mp= new MediaPlayer();
         textView.setText(getResources().getString(R.string.toque_para_rep));
         setVolumeControlStream(AudioManager.STREAM_MUSIC);
-        mService=new ReproducingService();
         reproduciendo=0;
-
-        registerReceiver(uiUpdated, new IntentFilter("PlayingActivity"));
-
-
+        reproduceDictad= new RepDictAsync(textView, this);
+        bandRepetir=false;
+        d= new DictadoDificil();
     }
 
-    private BroadcastReceiver uiUpdated= new BroadcastReceiver() {
-
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            Log.d("info", "recibido");
-            textView.setText(intent.getStringExtra(ReproducingService.RESPUESTA));
-
-        }
-    };
 
 
-    @Override
-    public void onStart()
-    {super.onStart();
-      Intent  intent = new Intent(this, ReproducingService.class);
-      mBound= getApplicationContext().bindService(intent,mConnection, Context.BIND_AUTO_CREATE);
-        if(mBound)
-            Log.d("info","bounded");
-    }
+
+   public void actionButtonStop(View view)
+   {       Log.d("info", "buttonStop");
+       if(reproduceDictad.getStatus()!=AsyncTask.Status.FINISHED)
+           reproduceDictad.onCancelled();
+       Intent intent= new Intent(this, MainActivity.class);
+       startActivity(intent);
+
+   }
 
 
 
@@ -92,32 +87,34 @@ public class PlayingActivity extends AppCompatActivity {
 
                 String dificultad= getResources().getString(R.string.texto_dificultad);
                 textView.setText(dificultad+" "+message);
-                if (mBound && reproduciendo==0) {
-                                reproduciendo=1;
-                                Log.d("info", message);
-                                if( message.compareTo("Fácil")==0 ) {
-                                    new Thread(new Runnable() {
-                                        public void run() {
-                                            Log.d("info","ejecutando hilo facil");
-                                          mService.generaDictadoFacil(textView, getApplicationContext());
-                                            reproduciendo=0;
-                                        }
-                                    }).start();
-                                    Log.d("info", "despues del generaDictadoFacil");
-
-                                }
-                                else{
-                                    new Thread(new Runnable() {
-                                        public void run() {
-                                            Log.d("info","ejecutando hilo dificil");
-                                              mService.generaDictadoDificil(textView);
-                                            reproduciendo=0;
-                                        }
-                                    }).start();
-                                }
-
-
+                if(bandRepetir) {
+                    Log.d("info", d.toString());
+                    Log.d("info", "repite");
+                    Log.d("info", "creando async repetir");
+                    reproduciendo=1;
+                    reproduceDictad= new RepDictAsync(textView,this,getString(R.string.repetir),d);
+                    reproduceDictad.execute();
                 }
+                if( message.compareTo("Fácil")==0 && reproduciendo==0 ) {
+                    reproduciendo=1;
+                     reproduceDictad = new RepDictAsync(textView, this, message);
+                    reproduceDictad.execute();
+                }
+                else
+                {   if(reproduciendo==0) {
+                     reproduciendo=1;
+                     reproduceDictad = new RepDictAsync(textView, this, message);
+                     reproduceDictad.execute();
+                    }
+                }
+
+                 if(AsyncTask.Status.FINISHED== reproduceDictad.getStatus()   )
+                  { reproduciendo=0;
+
+                  }
+
+
+
             }   return true;
             case (MotionEvent.ACTION_MOVE):
                 Log.d(DEBUG_TAG, "La acción ha sido MOVER");
@@ -125,10 +122,13 @@ public class PlayingActivity extends AppCompatActivity {
             case (MotionEvent.ACTION_UP):
                 Log.d(DEBUG_TAG, "La acción ha sido ARRIBA");
                 return true;
-            case (MotionEvent.ACTION_CANCEL):
+            case (MotionEvent.ACTION_CANCEL): {
                 Log.d(DEBUG_TAG, "La accion ha sido CANCEL");
-                  stopServices();
-                return true;
+                reproduceDictad.onCancelled();
+                Intent principal = new Intent(this, MainActivity.class);
+                startActivity(principal);
+
+            } return true;
             case (MotionEvent.ACTION_OUTSIDE):
                 Log.d(DEBUG_TAG,
                         "La accion ha sido fuera del elemento de la pantalla");
@@ -141,13 +141,16 @@ public class PlayingActivity extends AppCompatActivity {
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_HOME) {
-            this.stopServices();
+
+            if(reproduceDictad.getStatus()!=AsyncTask.Status.FINISHED)
+                reproduceDictad.onCancelled();
             Intent principal= new Intent(this,MainActivity.class);
             startActivity(principal);
         }
         if(keyCode==KeyEvent.KEYCODE_BACK)
         {
-            this.stopServices();
+            if(reproduceDictad.getStatus()!=AsyncTask.Status.FINISHED)
+             reproduceDictad.onCancelled();
             Intent principal= new Intent(this,MainActivity.class);
             startActivity(principal);
 
@@ -156,73 +159,18 @@ public class PlayingActivity extends AppCompatActivity {
     }
 
 
-
-    public void stopServices() {
-
-        // Unbind from the service
-        if (mBound) {
-            getApplicationContext().unbindService(mConnection);
-            Intent i = new Intent(this, ReproducingService.class);
-            mService.stopSelf();
-            mBound = false;
-        }
-
-
-    }
-
-
-    private ServiceConnection mConnection = new ServiceConnection() {
-        // Called when the connection with the service is established
-
-
-        @Override
-        public void onServiceConnected(ComponentName className, IBinder service) {
-            // Because we have bound to an explicit
-            // service that is running in our own process, we can
-
-            // cast its IBinder to a concrete class and directly access it.
-          ReproducingService.LocalBinder binder= (ReproducingService.LocalBinder) service;
-            mService = binder.getService();
-            mBound = true;
-        }
-
-        // Called when the connection with the service disconnects unexpectedly
-        @Override
-        public void onServiceDisconnected(ComponentName className) {
-            Log.d("info", "onServiceDisconnected");
-            mBound = false;
-        }
-    };
-
-        @Override
+    @Override
     public void onPause()
     {super.onPause();
-        Log.d("info", "pause");
-       stopServices();
-        mService.onDestroy();
+        if(reproduceDictad.getStatus()!=AsyncTask.Status.FINISHED)
+            reproduceDictad.onCancelled();
+        Intent principal= new Intent(this,MainActivity.class);
+        startActivity(principal);
     }
 
-    @Override
-    public void onStop()
-    {   super.onStop();
 
-        Log.d("info", "servicio parado");
-        stopServices();
-        mService.onDestroy();
-    }
 
-    public void actionButtonStop (View view)
-    { Log.d("info","parando dictado");
-        mService.stopSelf();
-        mService.onDestroy();
-        Intent  intent =new Intent(this, MainActivity.class);
-        startActivity(intent);
-        reproduciendo=0;
-    }
 
-    @Override
-    public void onDestroy()
-    {   super.onDestroy();
-        unregisterReceiver(uiUpdated);
-    }
+
+
 }

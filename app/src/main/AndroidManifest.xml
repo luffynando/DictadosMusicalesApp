@@ -16,7 +16,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".PlayingActivity"></activity>
-        <service android:name=".ReproducingService" />
 
 
     </application>
