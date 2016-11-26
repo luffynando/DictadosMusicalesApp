@@ -3,6 +3,7 @@ package com.example.misa.dictadosmusicales;
 import android.content.Context;
 import android.content.DialogInterface;
 
+import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.AsyncTask;
 import android.support.v7.app.AlertDialog;
@@ -113,6 +114,7 @@ import java.util.ArrayList;
                     Log.d("info", "asignando dictado al PLaying"+ PlayingActivity.d.getDictadoString());
                     }
                 }
+                PlayingActivity.reproduciendo=0;
                 textView.setText("toca la pantalla para repetir");
                 PlayingActivity.bandRepetir=true;
 
@@ -124,13 +126,7 @@ import java.util.ArrayList;
     @Override
     protected void onCancelled()
     {
-        if(mp!=null)
-        {   Log.d("info", "ejecutando on Cancelled");
-            try {
-                mp.stop();
-            }catch(IllegalStateException e){mp.release();}
-            mp.release();
-        }
+       cancelado();
         cancel(true);
     }
 
@@ -141,6 +137,7 @@ import java.util.ArrayList;
 
 
             showDialog("Repetir","¿Quieres repetir el dictado?");
+
 
          //textView.setText(text.toString());
 
@@ -246,57 +243,72 @@ import java.util.ArrayList;
 
     public void audioPlayer(int recurso){
 
-       mp= MediaPlayer.create(context,recurso);
+        mp= MediaPlayer.create(context,recurso);
         duration=mp.getDuration();
         int aux = 0;
         try {
             mp.start();
 
 
-            if(isCancelled())
-            {   Log.d("info", "cancelado despues de iniciar el start");
-                if(mp!=null)
-                { mp.stop();
+            if (isCancelled()) {
+                Log.d("info", "cancelado despues de iniciar el start");
+                if (mp != null) {
+                    mp.stop();
+                    mp.reset();
                     mp.release();
+                    mp = null;
                 }
                 return;
             }
 
 
-            while (duration > aux) {
-                aux = mp.getCurrentPosition();
+            while (mp.isPlaying()) {
+                //aux = mp.getCurrentPosition();
                 //Log.d("info","ciclado");
-                if(isCancelled())
-                {   Log.d("info", "cancelado en while audioPlayer");
-                    if(mp!=null)
-                    { mp.stop();
+                if (isCancelled()) {
+                    Log.d("info", "cancelado en while audioPlayer");
+                    if (mp != null) {
+                        mp.stop();
+                        mp.reset();
                         mp.release();
+                        mp = null;
                     }
                     return;
                 }
             }
 
-        }catch(Exception e){
+            //mp.stop();
+            //mp.reset();
+
+        } catch (Exception e) {
 
             mp.release();
 
         }
-        if(isCancelled())
-        {   Log.d("info", "cancelado en audioPlayer");
-            if(mp!=null)
-            { mp.stop();
+        if (isCancelled()) {
+            Log.d("info", "cancelado en audioPlayer");
+            if (mp != null) {
+                mp.stop();
+                mp.reset();
                 mp.release();
+                mp = null;
             }
             return;
         }
-        if(mp!=null)
-        {
+        try {
+            if (mp.isPlaying()) {
+                //Fix mediaplayer kk
+                mp.stop();
+                mp.reset();
+                mp.release();
+            }
+        } catch (Exception e) {
             mp.release();
         }
     }
 
     public String repetir()
-    {
+    {    PlayingActivity.bandRepetir=false;
         mp= new MediaPlayer();
         text= new StringBuffer();
         dictado=d.dictadoString;
@@ -376,6 +388,17 @@ import java.util.ArrayList;
         if(nota.equals("gs6"))
             return(R.raw.gs6);
         return(-1);
+    }
+
+    public void cancelado()
+    {
+        Log.d("info", "cancelado en audioPlayer");
+        try {
+            if (mp != null) {
+                mp.stop();
+                mp.release();
+            }
+        }catch (IllegalStateException e){}
     }
 
 }
