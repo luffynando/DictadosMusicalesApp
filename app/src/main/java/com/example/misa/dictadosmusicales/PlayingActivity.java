@@ -22,6 +22,7 @@ import android.widget.TextView;
 
 import org.w3c.dom.Text;
 
+import java.io.File;
 import java.util.ArrayList;
 
 
@@ -32,7 +33,7 @@ public class PlayingActivity extends AppCompatActivity {
     String message;
     TextView textView;
     RepDictAsync reproduceDictad;
-    int reproduciendo;
+   static  int reproduciendo;
    static  Dictado d;
     static boolean bandRepetir;
 
@@ -62,16 +63,19 @@ public class PlayingActivity extends AppCompatActivity {
 
    public void actionButtonStop(View view)
    {       Log.d("info", "buttonStop");
-       if(reproduceDictad.getStatus()!=AsyncTask.Status.FINISHED)
-           reproduceDictad.onCancelled();
-       Intent intent= new Intent(this, MainActivity.class);
-       startActivity(intent);
-
+       regresaPrincipal();
    }
 
+    // detiene servicios limpia cache y regresa el menú principal
+    public void regresaPrincipal()
+    {
+        if(reproduceDictad.getStatus()!=AsyncTask.Status.FINISHED)
+            reproduceDictad.onCancelled();
+        MainActivity.deleteCache(this);
+        Intent intent= new Intent(this, MainActivity.class);
+        startActivity(intent);
 
-
-
+    }
 
 
 
@@ -84,18 +88,15 @@ public class PlayingActivity extends AppCompatActivity {
 
         switch (action) {
             case (MotionEvent.ACTION_DOWN): {
-
+                    Log.d("info","valor de reproduciendo "+ reproduciendo );
                 String dificultad= getResources().getString(R.string.texto_dificultad);
                 textView.setText(dificultad+" "+message);
-                if(bandRepetir) {
-                    Log.d("info", d.toString());
-                    Log.d("info", "repite");
-                    Log.d("info", "creando async repetir");
+                if(bandRepetir && reproduciendo==0) {
                     reproduciendo=1;
                     reproduceDictad= new RepDictAsync(textView,this,getString(R.string.repetir),d);
                     reproduceDictad.execute();
                 }
-                if( message.compareTo("Fácil")==0 && reproduciendo==0 ) {
+                if( message.compareTo(getString(R.string.facil))==0 && reproduciendo==0 ) {
                     reproduciendo=1;
                      reproduceDictad = new RepDictAsync(textView, this, message);
                     reproduceDictad.execute();
@@ -112,9 +113,6 @@ public class PlayingActivity extends AppCompatActivity {
                   { reproduciendo=0;
 
                   }
-
-
-
             }   return true;
             case (MotionEvent.ACTION_MOVE):
                 Log.d(DEBUG_TAG, "La acción ha sido MOVER");
@@ -141,33 +139,26 @@ public class PlayingActivity extends AppCompatActivity {
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_HOME) {
-
-            if(reproduceDictad.getStatus()!=AsyncTask.Status.FINISHED)
-                reproduceDictad.onCancelled();
-            Intent principal= new Intent(this,MainActivity.class);
-            startActivity(principal);
-        }
-        if(keyCode==KeyEvent.KEYCODE_BACK)
-        {
-            if(reproduceDictad.getStatus()!=AsyncTask.Status.FINISHED)
-             reproduceDictad.onCancelled();
-            Intent principal= new Intent(this,MainActivity.class);
-            startActivity(principal);
-
+            regresaPrincipal();
         }
         return super.onKeyDown(keyCode,event);
     }
 
 
     @Override
-    public void onPause()
-    {super.onPause();
-        if(reproduceDictad.getStatus()!=AsyncTask.Status.FINISHED)
-            reproduceDictad.onCancelled();
-        Intent principal= new Intent(this,MainActivity.class);
-        startActivity(principal);
+    public void onBackPressed()
+    {super.onBackPressed();
+        regresaPrincipal();
     }
 
+    /*@Override
+    public void onPause()
+    {super.onPause();
+       // if(reproduceDictad.getStatus()!=AsyncTask.Status.FINISHED)
+         //   reproduceDictad.onCancelled();
+       // Intent principal= new Intent(this,MainActivity.class);
+        //startActivity(principal);
+    }*/
 
 
 

@@ -29,12 +29,7 @@
         android:onClick="actionButtonDificil"
         />
 
-    <TextView android:id="@+id/nota_referencia"
-        android:layout_width="0dp"
-        android:layout_weight="1"
-        android:layout_height="wrap_content"
-        android:text="@string/nota_referencia"
-        />
+
 
 
 </LinearLayout>
