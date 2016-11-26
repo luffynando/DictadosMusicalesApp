@@ -2,15 +2,14 @@ package com.example.misa.dictadosmusicales;
 
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.media.AudioManager;
+
 import android.media.MediaPlayer;
 import android.os.AsyncTask;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.widget.TextView;
 
-import java.io.IOException;
+
 import java.util.ArrayList;
 
 /**
@@ -31,6 +30,7 @@ import java.util.ArrayList;
     private String message;
     private DialogInterface.OnClickListener button_ok, button_show;
     private Dictado d;
+    public int duration;
 
     private boolean bandRepetir;
 
@@ -108,8 +108,10 @@ import java.util.ArrayList;
                     Log.d("info", "asignando dictado al PLaying"+ PlayingActivity.d.getDictadoString());
                 }
                 else {
-                    PlayingActivity.d.setDictadoString(dd.getDictadoString());
+                    if(message.compareTo(context.getString(R.string.dificil) )==0 )
+                    {PlayingActivity.d.setDictadoString(dd.getDictadoString());
                     Log.d("info", "asignando dictado al PLaying"+ PlayingActivity.d.getDictadoString());
+                    }
                 }
                 textView.setText("toca la pantalla para repetir");
                 PlayingActivity.bandRepetir=true;
@@ -245,14 +247,14 @@ import java.util.ArrayList;
     public void audioPlayer(int recurso){
 
        mp= MediaPlayer.create(context,recurso);
-
-
-           mp.start();
+        duration=mp.getDuration();
         int aux = 0;
         try {
             mp.start();
+
+
             if(isCancelled())
-            {   Log.d("info", "cancelado en while audioPlayer");
+            {   Log.d("info", "cancelado despues de iniciar el start");
                 if(mp!=null)
                 { mp.stop();
                     mp.release();
@@ -261,8 +263,9 @@ import java.util.ArrayList;
             }
 
 
-            while (mp.getDuration() > aux) {
+            while (duration > aux) {
                 aux = mp.getCurrentPosition();
+                //Log.d("info","ciclado");
                 if(isCancelled())
                 {   Log.d("info", "cancelado en while audioPlayer");
                     if(mp!=null)
@@ -276,7 +279,6 @@ import java.util.ArrayList;
         }catch(Exception e){
 
             mp.release();
-
 
         }
         if(isCancelled())
