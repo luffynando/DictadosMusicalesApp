@@ -3,4 +3,703 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+
+    <!-- Colores Material Design de Google obtenido en:
+    http://www.google.com/design/spec/style/color.html#color-ui-color-palette -->
+
+    <!-- Rojos -->
+    <array name="rojos">
+        <item>@color/c_rojo_500</item>
+        <item>@color/c_rojo_50</item>
+        <item>@color/c_rojo_100</item>
+        <item>@color/c_rojo_200</item>
+        <item>@color/c_rojo_300</item>
+        <item>@color/c_rojo_400</item>
+        <item>@color/c_rojo_600</item>
+        <item>@color/c_rojo_700</item>
+        <item>@color/c_rojo_800</item>
+        <item>@color/c_rojo_900</item>
+        <item>@color/c_rojo_A100</item>
+        <item>@color/c_rojo_A200</item>
+        <item>@color/c_rojo_A400</item>
+        <item>@color/c_rojo_A700</item>
+    </array>
+    <color name="c_rojo_50">#ffebee</color>
+    <color name="c_rojo_100">#ffcdd2</color>
+    <color name="c_rojo_200">#ef9a9a</color>
+    <color name="c_rojo_300">#e57373</color>
+    <color name="c_rojo_400">#ef5350</color>
+    <color name="c_rojo_500">#f44336</color>
+    <color name="c_rojo_600">#e53935</color>
+    <color name="c_rojo_700">#d32f2f</color>
+    <color name="c_rojo_800">#c62828</color>
+    <color name="c_rojo_900">#b71c1c</color>
+    <color name="c_rojo_A100">#ff8a80</color>
+    <color name="c_rojo_A200">#ff5252</color>
+    <color name="c_rojo_A400">#ff1744</color>
+    <color name="c_rojo_A700">#d50000</color>
+    <color name="c_rojo_500_25">#40f44336</color>
+    <color name="c_rojo_500_50">#80f44336</color>
+    <color name="c_rojo_500_75">#c0f44336</color>
+
+    <!-- Rosas -->
+    <array name="rosas">
+        <item>@color/c_rosa_500</item>
+        <item>@color/c_rosa_50</item>
+        <item>@color/c_rosa_100</item>
+        <item>@color/c_rosa_200</item>
+        <item>@color/c_rosa_300</item>
+        <item>@color/c_rosa_400</item>
+        <item>@color/c_rosa_600</item>
+        <item>@color/c_rosa_700</item>
+        <item>@color/c_rosa_800</item>
+        <item>@color/c_rosa_900</item>
+        <item>@color/c_rosa_A100</item>
+        <item>@color/c_rosa_A200</item>
+        <item>@color/c_rosa_A400</item>
+        <item>@color/c_rosa_A700</item>
+    </array>
+    <color name="c_rosa_50">#fce4ec</color>
+    <color name="c_rosa_100">#f8bbd0</color>
+    <color name="c_rosa_200">#f48fb1</color>
+    <color name="c_rosa_300">#f06292</color>
+    <color name="c_rosa_400">#ec407a</color>
+    <color name="c_rosa_500">#e91e63</color>
+    <color name="c_rosa_600">#d81b60</color>
+    <color name="c_rosa_700">#c2185b</color>
+    <color name="c_rosa_800">#ad1457</color>
+    <color name="c_rosa_900">#880e4f</color>
+    <color name="c_rosa_A100">#ff80ab</color>
+    <color name="c_rosa_A200">#ff4081</color>
+    <color name="c_rosa_A400">#f50057</color>
+    <color name="c_rosa_A700">#c51162</color>
+    <color name="c_rosa_500_25">#40e91e63</color>
+    <color name="c_rosa_500_50">#80e91e63</color>
+    <color name="c_rosa_500_75">#c0e91e63</color>
+
+    <!-- Morados -->
+    <array name="morados">
+        <item>@color/c_morado_500</item>
+        <item>@color/c_morado_50</item>
+        <item>@color/c_morado_100</item>
+        <item>@color/c_morado_200</item>
+        <item>@color/c_morado_300</item>
+        <item>@color/c_morado_400</item>
+        <item>@color/c_morado_600</item>
+        <item>@color/c_morado_700</item>
+        <item>@color/c_morado_800</item>
+        <item>@color/c_morado_900</item>
+        <item>@color/c_morado_A100</item>
+        <item>@color/c_morado_A200</item>
+        <item>@color/c_morado_A400</item>
+        <item>@color/c_morado_A700</item>
+    </array>
+    <color name="c_morado_50">#f3e5f5</color>
+    <color name="c_morado_100">#e1bee7</color>
+    <color name="c_morado_200">#ce93d8</color>
+    <color name="c_morado_300">#ba68c8</color>
+    <color name="c_morado_400">#ab47bc</color>
+    <color name="c_morado_500">#9c27b0</color>
+    <color name="c_morado_600">#8e24aa</color>
+    <color name="c_morado_700">#7b1fa2</color>
+    <color name="c_morado_800">#6a1b9a</color>
+    <color name="c_morado_900">#4a148c</color>
+    <color name="c_morado_A100">#ea80fc</color>
+    <color name="c_morado_A200">#e040fb</color>
+    <color name="c_morado_A400">#d500f9</color>
+    <color name="c_morado_A700">#aa00ff</color>
+    <color name="c_morado_500_25">#409c27b0</color>
+    <color name="c_morado_500_50">#809c27b0</color>
+    <color name="c_morado_500_75">#c09c27b0</color>
+
+    <!-- Morado Oscuro -->
+    <array name="deep_purples">
+        <item>@color/c_morado_osc_500</item>
+        <item>@color/c_morado_osc_50</item>
+        <item>@color/c_morado_osc_100</item>
+        <item>@color/c_morado_osc_200</item>
+        <item>@color/c_morado_osc_300</item>
+        <item>@color/c_morado_osc_400</item>
+        <item>@color/c_morado_osc_600</item>
+        <item>@color/c_morado_osc_700</item>
+        <item>@color/c_morado_osc_800</item>
+        <item>@color/c_morado_osc_900</item>
+        <item>@color/c_morado_osc_A100</item>
+        <item>@color/c_morado_osc_A200</item>
+        <item>@color/c_morado_osc_A400</item>
+        <item>@color/c_morado_osc_A700</item>
+    </array>
+    <color name="c_morado_osc_50">#ede7f6</color>
+    <color name="c_morado_osc_100">#d1c4e9</color>
+    <color name="c_morado_osc_200">#b39ddb</color>
+    <color name="c_morado_osc_300">#9575cd</color>
+    <color name="c_morado_osc_400">#7e57c2</color>
+    <color name="c_morado_osc_500">#673ab7</color>
+    <color name="c_morado_osc_600">#5e35b1</color>
+    <color name="c_morado_osc_700">#512da8</color>
+    <color name="c_morado_osc_800">#4527a0</color>
+    <color name="c_morado_osc_900">#311b92</color>
+    <color name="c_morado_osc_A100">#b388ff</color>
+    <color name="c_morado_osc_A200">#7c4dff</color>
+    <color name="c_morado_osc_A400">#651fff</color>
+    <color name="c_morado_osc_A700">#6200ea</color>
+    <color name="c_morado_osc_500_25">#40673ab7</color>
+    <color name="c_morado_osc_500_50">#80673ab7</color>
+    <color name="c_morado_osc_500_75">#c0673ab7</color>
+
+    <!-- indigos -->
+    <array name="indigos">
+        <item>@color/c_indigo_500</item>
+        <item>@color/c_indigo_50</item>
+        <item>@color/c_indigo_100</item>
+        <item>@color/c_indigo_200</item>
+        <item>@color/c_indigo_300</item>
+        <item>@color/c_indigo_400</item>
+        <item>@color/c_indigo_600</item>
+        <item>@color/c_indigo_700</item>
+        <item>@color/c_indigo_800</item>
+        <item>@color/c_indigo_900</item>
+        <item>@color/c_indigo_A100</item>
+        <item>@color/c_indigo_A200</item>
+        <item>@color/c_indigo_A400</item>
+        <item>@color/c_indigo_A700</item>
+    </array>
+    <color name="c_indigo_50">#e8eaf6</color>
+    <color name="c_indigo_100">#c5cae9</color>
+    <color name="c_indigo_200">#9fa8da</color>
+    <color name="c_indigo_300">#7986cb</color>
+    <color name="c_indigo_400">#5c6bc0</color>
+    <color name="c_indigo_500">#3f51b5</color>
+    <color name="c_indigo_600">#3949ab</color>
+    <color name="c_indigo_700">#303f9f</color>
+    <color name="c_indigo_800">#283593</color>
+    <color name="c_indigo_900">#1a237e</color>
+    <color name="c_indigo_A100">#8c9eff</color>
+    <color name="c_indigo_A200">#536dfe</color>
+    <color name="c_indigo_A400">#3d5afe</color>
+    <color name="c_indigo_A700">#304ffe</color>
+    <color name="c_indigo_500_25">#403f51b5</color>
+    <color name="c_indigo_500_50">#803f51b5</color>
+    <color name="c_indigo_500_75">#c03f51b5</color>
+
+    <!--Azules-->
+    <array name="azules">
+        <item>@color/c_azul_500</item>
+        <item>@color/c_azul_50</item>
+        <item>@color/c_azul_100</item>
+        <item>@color/c_azul_200</item>
+        <item>@color/c_azul_300</item>
+        <item>@color/c_azul_400</item>
+        <item>@color/c_azul_600</item>
+        <item>@color/c_azul_700</item>
+        <item>@color/c_azul_800</item>
+        <item>@color/c_azul_900</item>
+        <item>@color/c_azul_A100</item>
+        <item>@color/c_azul_A200</item>
+        <item>@color/c_azul_A400</item>
+        <item>@color/c_azul_A700</item>
+    </array>
+    <color name="c_azul_50">#e3f2fd</color>
+    <color name="c_azul_100">#bbdefb</color>
+    <color name="c_azul_200">#90caf9</color>
+    <color name="c_azul_300">#64b5f6</color>
+    <color name="c_azul_400">#42a5f5</color>
+    <color name="c_azul_500">#2196f3</color>
+    <color name="c_azul_600">#1e88e5</color>
+    <color name="c_azul_700">#1976d2</color>
+    <color name="c_azul_800">#1565c0</color>
+    <color name="c_azul_900">#0d47a1</color>
+    <color name="c_azul_A100">#82b1ff</color>
+    <color name="c_azul_A200">#448aff</color>
+    <color name="c_azul_A400">#2979ff</color>
+    <color name="c_azul_A700">#2962ff</color>
+    <color name="c_azul_500_25">#402196f3</color>
+    <color name="c_azul_500_50">#802196f3</color>
+    <color name="c_azul_500_75">#c02196f3</color>
+
+    <!-- Azules claros-->
+    <array name="azules_claros">
+        <item>@color/c_azul_claro_500</item>
+        <item>@color/c_azul_claro_50</item>
+        <item>@color/c_azul_claro_100</item>
+        <item>@color/c_azul_claro_200</item>
+        <item>@color/c_azul_claro_300</item>
+        <item>@color/c_azul_claro_400</item>
+        <item>@color/c_azul_claro_600</item>
+        <item>@color/c_azul_claro_700</item>
+        <item>@color/c_azul_claro_800</item>
+        <item>@color/c_azul_claro_900</item>
+        <item>@color/c_azul_claro_A100</item>
+        <item>@color/c_azul_claro_A200</item>
+        <item>@color/c_azul_claro_A400</item>
+        <item>@color/c_azul_claro_A700</item>
+    </array>
+    <color name="c_azul_claro_50">#e1f5fe</color>
+    <color name="c_azul_claro_100">#b3e5fc</color>
+    <color name="c_azul_claro_200">#81d4fa</color>
+    <color name="c_azul_claro_300">#4fc3f7</color>
+    <color name="c_azul_claro_400">#29b6f6</color>
+    <color name="c_azul_claro_500">#03a9f4</color>
+    <color name="c_azul_claro_600">#039be5</color>
+    <color name="c_azul_claro_700">#0288d1</color>
+    <color name="c_azul_claro_800">#0277bd</color>
+    <color name="c_azul_claro_900">#01579b</color>
+    <color name="c_azul_claro_A100">#80d8ff</color>
+    <color name="c_azul_claro_A200">#40c4ff</color>
+    <color name="c_azul_claro_A400">#00b0ff</color>
+    <color name="c_azul_claro_A700">#0091ea</color>
+    <color name="c_azul_claro_500_25">#4003a9f4</color>
+    <color name="c_azul_claro_500_50">#8003a9f4</color>
+    <color name="c_azul_claro_500_75">#c003a9f4</color>
+
+    <!-- cyans -->
+    <array name="cyans">
+        <item>@color/c_cyan_500</item>
+        <item>@color/c_cyan_50</item>
+        <item>@color/c_cyan_100</item>
+        <item>@color/c_cyan_200</item>
+        <item>@color/c_cyan_300</item>
+        <item>@color/c_cyan_400</item>
+        <item>@color/c_cyan_600</item>
+        <item>@color/c_cyan_700</item>
+        <item>@color/c_cyan_800</item>
+        <item>@color/c_cyan_900</item>
+        <item>@color/c_cyan_A100</item>
+        <item>@color/c_cyan_A200</item>
+        <item>@color/c_cyan_A400</item>
+        <item>@color/c_cyan_A700</item>
+    </array>
+    <color name="c_cyan_50">#e0f7fa</color>
+    <color name="c_cyan_100">#b2ebf2</color>
+    <color name="c_cyan_200">#80deea</color>
+    <color name="c_cyan_300">#4dd0e1</color>
+    <color name="c_cyan_400">#26c6da</color>
+    <color name="c_cyan_500">#00bcd4</color>
+    <color name="c_cyan_600">#00acc1</color>
+    <color name="c_cyan_700">#0097a7</color>
+    <color name="c_cyan_800">#00838f</color>
+    <color name="c_cyan_900">#006064</color>
+    <color name="c_cyan_A100">#84ffff</color>
+    <color name="c_cyan_A200">#18ffff</color>
+    <color name="c_cyan_A400">#00e5ff</color>
+    <color name="c_cyan_A700">#00b8d4</color>
+    <color name="c_cyan_500_25">#4000bcd4</color>
+    <color name="c_cyan_500_50">#8000bcd4</color>
+    <color name="c_cyan_500_75">#c000bcd4</color>
+
+    <!-- teals -->
+    <array name="teals">
+        <item>@color/c_teal_500</item>
+        <item>@color/c_teal_50</item>
+        <item>@color/c_teal_100</item>
+        <item>@color/c_teal_200</item>
+        <item>@color/c_teal_300</item>
+        <item>@color/c_teal_400</item>
+        <item>@color/c_teal_600</item>
+        <item>@color/c_teal_700</item>
+        <item>@color/c_teal_800</item>
+        <item>@color/c_teal_900</item>
+        <item>@color/c_teal_A100</item>
+        <item>@color/c_teal_A200</item>
+        <item>@color/c_teal_A400</item>
+        <item>@color/c_teal_A700</item>
+    </array>
+    <color name="c_teal_50">#e0f2f1</color>
+    <color name="c_teal_100">#b2dfdb</color>
+    <color name="c_teal_200">#80cbc4</color>
+    <color name="c_teal_300">#4db6ac</color>
+    <color name="c_teal_400">#26a69a</color>
+    <color name="c_teal_500">#009688</color>
+    <color name="c_teal_600">#00897b</color>
+    <color name="c_teal_700">#00796b</color>
+    <color name="c_teal_800">#00695c</color>
+    <color name="c_teal_900">#004d40</color>
+    <color name="c_teal_A100">#a7ffeb</color>
+    <color name="c_teal_A200">#64ffda</color>
+    <color name="c_teal_A400">#1de9b6</color>
+    <color name="c_teal_A700">#00bfa5</color>
+    <color name="c_teal_500_25">#40009688</color>
+    <color name="c_teal_500_50">#80009688</color>
+    <color name="c_teal_500_75">#c8009688</color>
+
+    <!-- verdes -->
+    <array name="verdes">
+        <item>@color/c_verde_500</item>
+        <item>@color/c_verde_50</item>
+        <item>@color/c_verde_100</item>
+        <item>@color/c_verde_200</item>
+        <item>@color/c_verde_300</item>
+        <item>@color/c_verde_400</item>
+        <item>@color/c_verde_600</item>
+        <item>@color/c_verde_700</item>
+        <item>@color/c_verde_800</item>
+        <item>@color/c_verde_900</item>
+        <item>@color/c_verde_A100</item>
+        <item>@color/c_verde_A200</item>
+        <item>@color/c_verde_A400</item>
+        <item>@color/c_verde_A700</item>
+    </array>
+    <color name="c_verde_50">#e8f5e9</color>
+    <color name="c_verde_100">#c8e6c9</color>
+    <color name="c_verde_200">#a5d6a7</color>
+    <color name="c_verde_300">#81c784</color>
+    <color name="c_verde_400">#66bb6a</color>
+    <color name="c_verde_500">#4caf50</color>
+    <color name="c_verde_600">#43a047</color>
+    <color name="c_verde_700">#388e3c</color>
+    <color name="c_verde_800">#2e7d32</color>
+    <color name="c_verde_900">#1b5e20</color>
+    <color name="c_verde_A100">#b9f6ca</color>
+    <color name="c_verde_A200">#69f0ae</color>
+    <color name="c_verde_A400">#00e676</color>
+    <color name="c_verde_A700">#00c853</color>
+    <color name="c_verde_500_25">#404caf50</color>
+    <color name="c_verde_500_50">#804caf50</color>
+    <color name="c_verde_500_75">#c04caf50</color>
+
+    <!--verdes claros-->
+    <array name="verde_claros">
+        <item>@color/c_verde_claro_500</item>
+        <item>@color/c_verde_claro_50</item>
+        <item>@color/c_verde_claro_100</item>
+        <item>@color/c_verde_claro_200</item>
+        <item>@color/c_verde_claro_300</item>
+        <item>@color/c_verde_claro_400</item>
+        <item>@color/c_verde_claro_600</item>
+        <item>@color/c_verde_claro_700</item>
+        <item>@color/c_verde_claro_800</item>
+        <item>@color/c_verde_claro_900</item>
+        <item>@color/c_verde_claro_A100</item>
+        <item>@color/c_verde_claro_A200</item>
+        <item>@color/c_verde_claro_A400</item>
+        <item>@color/c_verde_claro_A700</item>
+    </array>
+    <color name="c_verde_claro_50">#f1f8e9</color>
+    <color name="c_verde_claro_100">#dcedc8</color>
+    <color name="c_verde_claro_200">#c5e1a5</color>
+    <color name="c_verde_claro_300">#aed581</color>
+    <color name="c_verde_claro_400">#9ccc65</color>
+    <color name="c_verde_claro_500">#8bc34a</color>
+    <color name="c_verde_claro_600">#7cb342</color>
+    <color name="c_verde_claro_700">#689f38</color>
+    <color name="c_verde_claro_800">#558b2f</color>
+    <color name="c_verde_claro_900">#33691e</color>
+    <color name="c_verde_claro_A100">#ccff90</color>
+    <color name="c_verde_claro_A200">#b2ff59</color>
+    <color name="c_verde_claro_A400">#76ff03</color>
+    <color name="c_verde_claro_A700">#64dd17</color>
+    <color name="c_verde_claro_500_25">#408bc34a</color>
+    <color name="c_verde_claro_500_50">#808bc34a</color>
+    <color name="c_verde_claro_500_75">#c88bc34a</color>
+
+    <!-- limas -->
+    <array name="limas">
+        <item>@color/c_lima_500</item>
+        <item>@color/c_lima_50</item>
+        <item>@color/c_lima_100</item>
+        <item>@color/c_lima_200</item>
+        <item>@color/c_lima_300</item>
+        <item>@color/c_lima_400</item>
+        <item>@color/c_lima_600</item>
+        <item>@color/c_lima_700</item>
+        <item>@color/c_lima_800</item>
+        <item>@color/c_lima_900</item>
+        <item>@color/c_lima_A100</item>
+        <item>@color/c_lima_A200</item>
+        <item>@color/c_lima_A400</item>
+        <item>@color/c_lima_A700</item>
+    </array>
+    <color name="c_lima_50">#f9fbe7</color>
+    <color name="c_lima_100">#f0f4c3</color>
+    <color name="c_lima_200">#e6ee9c</color>
+    <color name="c_lima_300">#dce775</color>
+    <color name="c_lima_400">#d4e157</color>
+    <color name="c_lima_500">#cddc39</color>
+    <color name="c_lima_600">#c0ca33</color>
+    <color name="c_lima_700">#afb42b</color>
+    <color name="c_lima_800">#9e9d24</color>
+    <color name="c_lima_900">#827717</color>
+    <color name="c_lima_A100">#f4ff81</color>
+    <color name="c_lima_A200">#eeff41</color>
+    <color name="c_lima_A400">#c6ff00</color>
+    <color name="c_lima_A700">#aeea00</color>
+    <color name="c_lima_500_25">#40cddc39</color>
+    <color name="c_lima_500_50">#80cddc39</color>
+    <color name="c_lima_500_75">#c0cddc39</color>
+
+    <!--amarillos -->
+    <array name="amarillos">
+        <item>@color/c_amarillo_500</item>
+        <item>@color/c_amarillo_50</item>
+        <item>@color/c_amarillo_100</item>
+        <item>@color/c_amarillo_200</item>
+        <item>@color/c_amarillo_300</item>
+        <item>@color/c_amarillo_400</item>
+        <item>@color/c_amarillo_600</item>
+        <item>@color/c_amarillo_700</item>
+        <item>@color/c_amarillo_800</item>
+        <item>@color/c_amarillo_900</item>
+        <item>@color/c_amarillo_A100</item>
+        <item>@color/c_amarillo_A200</item>
+        <item>@color/c_amarillo_A400</item>
+        <item>@color/c_amarillo_A700</item>
+    </array>
+    <color name="c_amarillo_50">#fffde7</color>
+    <color name="c_amarillo_100">#fff9c4</color>
+    <color name="c_amarillo_200">#fff59d</color>
+    <color name="c_amarillo_300">#fff176</color>
+    <color name="c_amarillo_400">#ffee58</color>
+    <color name="c_amarillo_500">#ffeb3b</color>
+    <color name="c_amarillo_600">#fdd835</color>
+    <color name="c_amarillo_700">#fbc02d</color>
+    <color name="c_amarillo_800">#f9a825</color>
+    <color name="c_amarillo_900">#f57f17</color>
+    <color name="c_amarillo_A100">#ffff8d</color>
+    <color name="c_amarillo_A200">#ffff00</color>
+    <color name="c_amarillo_A400">#ffea00</color>
+    <color name="c_amarillo_A700">#ffd600</color>
+    <color name="c_amarillo_500_25">#40ffeb3b</color>
+    <color name="c_amarillo_500_50">#80ffeb3b</color>
+    <color name="c_amarillo_500_75">#c0ffeb3b</color>
+
+    <!-- ambars -->
+    <array name="ambars">
+        <item>@color/c_ambar_500</item>
+        <item>@color/c_ambar_50</item>
+        <item>@color/c_ambar_100</item>
+        <item>@color/c_ambar_200</item>
+        <item>@color/c_ambar_300</item>
+        <item>@color/c_ambar_400</item>
+        <item>@color/c_ambar_600</item>
+        <item>@color/c_ambar_700</item>
+        <item>@color/c_ambar_800</item>
+        <item>@color/c_ambar_900</item>
+        <item>@color/c_ambar_A100</item>
+        <item>@color/c_ambar_A200</item>
+        <item>@color/c_ambar_A400</item>
+        <item>@color/c_ambar_A700</item>
+    </array>
+    <color name="c_ambar_50">#fff8e1</color>
+    <color name="c_ambar_100">#ffecb3</color>
+    <color name="c_ambar_200">#ffe082</color>
+    <color name="c_ambar_300">#ffd54f</color>
+    <color name="c_ambar_400">#ffca28</color>
+    <color name="c_ambar_500">#ffc107</color>
+    <color name="c_ambar_600">#ffb300</color>
+    <color name="c_ambar_700">#ffa000</color>
+    <color name="c_ambar_800">#ff8f00</color>
+    <color name="c_ambar_900">#ff6f00</color>
+    <color name="c_ambar_A100">#ffe57f</color>
+    <color name="c_ambar_A200">#ffd740</color>
+    <color name="c_ambar_A400">#ffc400</color>
+    <color name="c_ambar_A700">#ffab00</color>
+    <color name="c_ambar_500_25">#40ffc107</color>
+    <color name="c_ambar_500_50">#80ffc107</color>
+    <color name="c_ambar_500_75">#c0ffc107</color>
+
+    <!-- naranjas -->
+    <array name="naranjas">
+        <item>@color/c_naranja_500</item>
+        <item>@color/c_naranja_50</item>
+        <item>@color/c_naranja_100</item>
+        <item>@color/c_naranja_200</item>
+        <item>@color/c_naranja_300</item>
+        <item>@color/c_naranja_400</item>
+        <item>@color/c_naranja_600</item>
+        <item>@color/c_naranja_700</item>
+        <item>@color/c_naranja_800</item>
+        <item>@color/c_naranja_900</item>
+        <item>@color/c_naranja_A100</item>
+        <item>@color/c_naranja_A200</item>
+        <item>@color/c_naranja_A400</item>
+        <item>@color/c_naranja_A700</item>
+    </array>
+    <color name="c_naranja_50">#fff3e0</color>
+    <color name="c_naranja_100">#ffe0b2</color>
+    <color name="c_naranja_200">#ffcc80</color>
+    <color name="c_naranja_300">#ffb74d</color>
+    <color name="c_naranja_400">#ffa726</color>
+    <color name="c_naranja_500">#ff9800</color>
+    <color name="c_naranja_600">#fb8c00</color>
+    <color name="c_naranja_700">#f57c00</color>
+    <color name="c_naranja_800">#ef6c00</color>
+    <color name="c_naranja_900">#e65100</color>
+    <color name="c_naranja_A100">#ffd180</color>
+    <color name="c_naranja_A200">#ffab40</color>
+    <color name="c_naranja_A400">#ff9100</color>
+    <color name="c_naranja_A700">#ff6d00</color>
+    <color name="c_naranja_500_25">#40ff9800</color>
+    <color name="c_naranja_500_50">#80ff9800</color>
+    <color name="c_naranja_500_75">#c0ff9800</color>
+
+    <!-- Naranjas oscuros -->
+    <array name="naranja_oscs">
+        <item>@color/c_naranja_osc_500</item>
+        <item>@color/c_naranja_osc_50</item>
+        <item>@color/c_naranja_osc_100</item>
+        <item>@color/c_naranja_osc_200</item>
+        <item>@color/c_naranja_osc_300</item>
+        <item>@color/c_naranja_osc_400</item>
+        <item>@color/c_naranja_osc_600</item>
+        <item>@color/c_naranja_osc_700</item>
+        <item>@color/c_naranja_osc_800</item>
+        <item>@color/c_naranja_osc_900</item>
+        <item>@color/c_naranja_osc_A100</item>
+        <item>@color/c_naranja_osc_A200</item>
+        <item>@color/c_naranja_osc_A400</item>
+        <item>@color/c_naranja_osc_A700</item>
+    </array>
+    <color name="c_naranja_osc_50">#fbe9e7</color>
+    <color name="c_naranja_osc_100">#ffccbc</color>
+    <color name="c_naranja_osc_200">#ffab91</color>
+    <color name="c_naranja_osc_300">#ff8a65</color>
+    <color name="c_naranja_osc_400">#ff7043</color>
+    <color name="c_naranja_osc_500">#ff5722</color>
+    <color name="c_naranja_osc_600">#f4511e</color>
+    <color name="c_naranja_osc_700">#e64a19</color>
+    <color name="c_naranja_osc_800">#d84315</color>
+    <color name="c_naranja_osc_900">#bf360c</color>
+    <color name="c_naranja_osc_A100">#ff9e80</color>
+    <color name="c_naranja_osc_A200">#ff6e40</color>
+    <color name="c_naranja_osc_A400">#ff3d00</color>
+    <color name="c_naranja_osc_A700">#dd2c00</color>
+    <color name="c_naranja_osc_500_25">#40ff5722</color>
+    <color name="c_naranja_osc_500_50">#80ff5722</color>
+    <color name="c_naranja_osc_500_75">#c0ff5722</color>
+
+    <!-- cafes -->
+    <array name="cafes">
+        <item>@color/c_cafe_500</item>
+        <item>@color/c_cafe_50</item>
+        <item>@color/c_cafe_100</item>
+        <item>@color/c_cafe_200</item>
+        <item>@color/c_cafe_300</item>
+        <item>@color/c_cafe_400</item>
+        <item>@color/c_cafe_600</item>
+        <item>@color/c_cafe_700</item>
+        <item>@color/c_cafe_800</item>
+        <item>@color/c_cafe_900</item>
+    </array>
+    <color name="c_cafe_50">#efebe9</color>
+    <color name="c_cafe_100">#d7ccc8</color>
+    <color name="c_cafe_200">#bcaaa4</color>
+    <color name="c_cafe_300">#a1887f</color>
+    <color name="c_cafe_400">#8d6e63</color>
+    <color name="c_cafe_500">#795548</color>
+    <color name="c_cafe_600">#6d4c41</color>
+    <color name="c_cafe_700">#5d4037</color>
+    <color name="c_cafe_800">#4e342e</color>
+    <color name="c_cafe_900">#3e2723</color>
+    <color name="c_cafe_500_25">#40795548</color>
+    <color name="c_cafe_500_50">#80795548</color>
+    <color name="c_cafe_500_75">#c0795548</color>
+
+    <!--grices-->
+    <array name="grices">
+        <item>@color/c_gris_500</item>
+        <item>@color/c_gris_50</item>
+        <item>@color/c_gris_100</item>
+        <item>@color/c_gris_200</item>
+        <item>@color/c_gris_300</item>
+        <item>@color/c_gris_400</item>
+        <item>@color/c_gris_600</item>
+        <item>@color/c_gris_700</item>
+        <item>@color/c_gris_800</item>
+        <item>@color/c_gris_900</item>
+        <item>@color/c_negro_1000</item>
+        <item>@color/c_blanco_1000</item>
+    </array>
+    <color name="c_gris_50">#fafafa</color>
+    <color name="c_gris_100">#f5f5f5</color>
+    <color name="c_gris_200">#eeeeee</color>
+    <color name="c_gris_300">#e0e0e0</color>
+    <color name="c_gris_400">#bdbdbd</color>
+    <color name="c_gris_500">#9e9e9e</color>
+    <color name="c_gris_600">#757575</color>
+    <color name="c_gris_700">#616161</color>
+    <color name="c_gris_800">#424242</color>
+    <color name="c_gris_900">#212121</color>
+    <color name="c_gris_500_25">#409e9e9e</color>
+    <color name="c_gris_500_50">#809e9e9e</color>
+    <color name="c_gris_500_75">#c09e9e9e</color>
+    <color name="c_blanco_1000">#ffffff</color>
+    <color name="c_blanco_1000_10">#1affffff</color>
+    <color name="c_blanco_1000_15">#22ffffff</color>
+    <color name="c_blanco_1000_20">#33ffffff</color>
+    <color name="c_blanco_1000_25">#40ffffff</color>
+    <color name="c_blanco_1000_50">#80ffffff</color>
+    <color name="c_blanco_1000_60">#99ffffff</color>
+    <color name="c_blanco_1000_75">#c0ffffff</color>
+    <color name="c_negro_1000_10">#1a000000</color>
+    <color name="c_negro_1000_15">#26000000</color>
+    <color name="c_negro_1000_20">#33000000</color>
+    <color name="c_negro_1000_25">#40000000</color>
+    <color name="c_negro_1000_50">#80000000</color>
+    <color name="c_negro_1000_75">#c0000000</color>
+    <color name="c_negro_1000">#000000</color>
+
+    <!--azul gris-->
+    <array name="azul_griss">
+        <item>@color/c_azul_gris_500</item>
+        <item>@color/c_azul_gris_50</item>
+        <item>@color/c_azul_gris_100</item>
+        <item>@color/c_azul_gris_200</item>
+        <item>@color/c_azul_gris_300</item>
+        <item>@color/c_azul_gris_400</item>
+        <item>@color/c_azul_gris_600</item>
+        <item>@color/c_azul_gris_700</item>
+        <item>@color/c_azul_gris_800</item>
+        <item>@color/c_azul_gris_900</item>
+    </array>
+    <color name="c_azul_gris_50">#eceff1</color>
+    <color name="c_azul_gris_100">#cfd8dc</color>
+    <color name="c_azul_gris_200">#b0bec5</color>
+    <color name="c_azul_gris_300">#90a4ae</color>
+    <color name="c_azul_gris_400">#78909c</color>
+    <color name="c_azul_gris_500">#607d8b</color>
+    <color name="c_azul_gris_600">#546e7a</color>
+    <color name="c_azul_gris_700">#455a64</color>
+    <color name="c_azul_gris_800">#37474f</color>
+    <color name="c_azul_gris_900">#263238</color>
+    <color name="c_azul_gris_500_25">#40607d8b</color>
+    <color name="c_azul_gris_500_50">#80607d8b</color>
+    <color name="c_azul_gris_500_75">#c0607d8b</color>
+
+    <!--Textos-->
+    <array name="textos_blancos">
+        <item>@color/c_text_blanco</item>
+        <item>@color/c_secondary_text_icons_blanco</item>
+        <item>@color/c_disabled_hint_text_blanco</item>
+        <item>@color/c_divider_blanco</item>
+    </array>
+    <color name="c_text_blanco">#ffffffff</color>
+    <color name="c_secondary_text_icons_blanco">#b3ffffff</color>
+    <color name="c_disabled_hint_text_blanco">#4dffffff</color>
+    <color name="c_divider_blanco">#d2ffffff</color>
+
+    <array name="textos_negro">
+        <item>@color/c_text</item>
+        <item>@color/c_secondary_text_icons</item>
+        <item>@color/c_disabled_hint_text</item>
+        <item>@color/c_divider</item>
+    </array>
+    <color name="c_text">#df000000</color>
+    <color name="c_secondary_text_icons">#8a000000</color>
+    <color name="c_disabled_hint_text">#4c000000</color>
+    <color name="c_divider">#1f000000</color>
+
+    <!--Falcon-->
+    <array name="falcon">
+        <item>@color/c_falcon_400</item>
+        <item>@color/c_falcon_500</item>
+        <item>@color/c_falcon_700</item>
+    </array>
+    <color name="c_falcon_400">#ff38628b</color>
+    <color name="c_falcon_500">#384e77</color>
+    <color name="c_falcon_700">#2b3e5f</color>
+    <color name="c_falcon_A400">#598bae</color>
+    <color name="c_falcon_500_25">#40384e77</color>
+    <color name="c_falcon_500_50">#80384e77</color>
+    <color name="c_falcon_500_75">#c0384e77</color>
+    <color name="c_falcon_A400_25">#40598bae</color>
 </resources>

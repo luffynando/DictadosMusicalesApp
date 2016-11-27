@@ -2,8 +2,10 @@ package com.example.misa.dictadosmusicales;
 
 
 import android.annotation.TargetApi;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.media.AudioAttributes;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
@@ -15,10 +17,18 @@ import android.os.Handler;
 import android.support.v4.view.MotionEventCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.text.Html;
+import android.text.method.LinkMovementMethod;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.Window;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,6 +49,8 @@ public class MainActivity extends AppCompatActivity {
     DictadoDificil dd;
     boolean bandPause;
     private Boolean exit = false;
+    Toolbar toolbar;
+    FrameLayout statusBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +60,37 @@ public class MainActivity extends AppCompatActivity {
         //ponemos a Android listo para ajustar el tipo de volumen de musica no te timbres
         //setVolumeControlStream(AudioManager.STREAM_MUSIC);
 
+        //Configuramos el statusBar y el Toolbar
+        toolbarStatusBar();
+        // Ajustamos algunas cosas con el modo de orientacion y el statusBar y navigation bar
+        navigationBarStatusBar();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Agregamos el menu, esto agrega el menu si es que existe algun action bar
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        //Las acciones que se deben tomar al presionar en alguna de las opciones del menu
+        //Si se definen homeUp, Long, se debera crear en el manifest, el PARENT_ACTIVITY
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_about) {
+            Dialog dialog = new Dialog(MainActivity.this);
+            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            dialog.setContentView(R.layout.ventana_acercade);
+            final TextView author = (TextView) dialog.findViewById(R.id.versionAppLink);
+            author.setMovementMethod(LinkMovementMethod.getInstance());
+            dialog.show();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     //cuando usario presiona el boton empezar se llama este metedo
@@ -58,6 +101,7 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra(EXTRA_MESSAGE, message);
         startActivity(intent);
 
+
     }
 
     public void actionButtonDificil(View view) {
@@ -65,6 +109,13 @@ public class MainActivity extends AppCompatActivity {
         String message = getResources().getString(R.string.dificil);
         intent.putExtra(EXTRA_MESSAGE, message);
         startActivity(intent);
+    }
+
+    public void ajustarStatus(){
+        if (Build.VERSION.SDK_INT >=19) {
+            FrameLayout status = (FrameLayout) findViewById(R.id.statusBar);
+            status.setVisibility(View.GONE);
+        }
     }
 
     //obtiene el Id segun la nota y regresa el id del recurso
@@ -155,6 +206,58 @@ public class MainActivity extends AppCompatActivity {
         return super.onTouchEvent(event);
 
 
+    }
+
+    public void toolbarStatusBar() {
+
+        // Definimos el toolbar y el Status bar de nuestro view
+        statusBar = (FrameLayout) findViewById(R.id.statusBar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+
+        // Get support to the toolbar and change its title
+        setSupportActionBar(toolbar);
+    }
+
+    public void navigationBarStatusBar() {
+
+        // Arreglamos algunos bugs en portrait modo
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+            // Arreglamos algunos bugs en la configuracion del StatusBar color primario en kitkat
+            if (Build.VERSION.SDK_INT >= 19) {
+                TypedValue typedValue19 = new TypedValue();
+                MainActivity.this.getTheme().resolveAttribute(R.attr.colorPrimary, typedValue19, true);
+                final int color = typedValue19.data;
+                FrameLayout statusBar = (FrameLayout) findViewById(R.id.statusBar);
+                statusBar.setBackgroundColor(color);
+            }
+
+            // Arreglamos algunos bugs en la configuracion del StatusBar color primario en lollipop y versiones posteriores
+            if (Build.VERSION.SDK_INT >= 21) {
+                TypedValue typedValue21 = new TypedValue();
+                MainActivity.this.getTheme().resolveAttribute(R.attr.colorPrimaryDark, typedValue21, true);
+                final int color = typedValue21.data;
+                FrameLayout statusBar = (FrameLayout) findViewById(R.id.statusBar);
+                statusBar.setBackgroundColor(color);
+                getWindow().setStatusBarColor(color);
+            }
+        }
+
+        // Arreglamos algunos bugs en landscape modo (Lollipop)
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            if (Build.VERSION.SDK_INT >= 19) {
+                TypedValue typedValue19 = new TypedValue();
+                MainActivity.this.getTheme().resolveAttribute(R.attr.colorPrimary, typedValue19, true);
+                final int color = typedValue19.data;
+                FrameLayout statusBar = (FrameLayout) findViewById(R.id.statusBar);
+                statusBar.setBackgroundColor(color);
+            }
+            if (Build.VERSION.SDK_INT >= 21) {
+                TypedValue typedValue = new TypedValue();
+                MainActivity.this.getTheme().resolveAttribute(R.attr.colorPrimaryDark, typedValue, true);
+                final int color = typedValue.data;
+                getWindow().setStatusBarColor(color);
+            }
+        }
     }
 
 
