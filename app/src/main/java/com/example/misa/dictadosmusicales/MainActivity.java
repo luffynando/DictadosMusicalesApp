@@ -56,10 +56,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        this.setVolumeControlStream(AudioManager.STREAM_MUSIC);
         //ponemos a Android listo para ajustar el tipo de volumen de musica no te timbres
-        //setVolumeControlStream(AudioManager.STREAM_MUSIC);
-
+        setVolumeControlStream(AudioManager.STREAM_MUSIC);
         //Configuramos el statusBar y el Toolbar
         toolbarStatusBar();
         // Ajustamos algunas cosas con el modo de orientacion y el statusBar y navigation bar
@@ -81,11 +79,17 @@ public class MainActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_about) {
+
+            //Creamos un dialog donde mostramos el acercaDe
             Dialog dialog = new Dialog(MainActivity.this);
+            // creamos el dialog sin tititulo
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            //al contenido le pones el string acercaDe
             dialog.setContentView(R.layout.ventana_acercade);
+            //la version
             final TextView author = (TextView) dialog.findViewById(R.id.versionAppLink);
             author.setMovementMethod(LinkMovementMethod.getInstance());
+            //lo mostramos
             dialog.show();
             return true;
         }
@@ -93,17 +97,19 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    //cuando usario presiona el boton empezar se llama este metedo
+    //cuando usario presiona el boton facil se llama este metedo
     public void actionButtonFacil(View view) {
+        //creamos el segundo intent
         Intent intent = new Intent(this, PlayingActivity.class);
+        // asignamos mensaje a mandar al intent
         String message = getResources().getString(R.string.facil);
-
+        // mandamos el intent y el mensaje
         intent.putExtra(EXTRA_MESSAGE, message);
+        //iniciamos el activity
         startActivity(intent);
-
-
     }
 
+    // acttion para el botton dificil
     public void actionButtonDificil(View view) {
         Intent intent = new Intent(this, PlayingActivity.class);
         String message = getResources().getString(R.string.dificil);
@@ -111,12 +117,7 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void ajustarStatus(){
-        if (Build.VERSION.SDK_INT >=19) {
-            FrameLayout status = (FrameLayout) findViewById(R.id.statusBar);
-            status.setVisibility(View.GONE);
-        }
-    }
+
 
     //obtiene el Id segun la nota y regresa el id del recurso
     public int getnotaID(String nota) {
@@ -173,11 +174,12 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         if (exit) {
-            finish(); // finish activity
-        } else {
+            finish(); // finish activity cuando se presiona dos veces back
+        } else {// mensaje cuando se presiona una vez back
             Toast.makeText(this, getString(R.string.salir),
                     Toast.LENGTH_SHORT).show();
             exit = true;
+            // para contar en el que se presiona dos veces atrás
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
@@ -188,7 +190,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
-
+    // metodo para que cuando se presione la pantalla se escuche la nota la
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         // TODO Auto-generated method stub
@@ -260,24 +262,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
-
-    /*@Override
-    public void onResume()
-    {super.onResume();
-        mp= new MediaPlayer();
-        bandPause=false;
-    }
-
-     @Override
-    public void onPause()
-    {   super.onPause();
-        Log.d("info"," pausado desde Main");
-    }
-
-    */
-
-
+    // metodo que borra la cache para ahorrar espacio en memoria
     public static void deleteCache(Context context) {
         try {
             File dir = context.getCacheDir();
@@ -287,7 +272,7 @@ public class MainActivity extends AppCompatActivity {
         } catch (Exception e) {}
     }
 
-
+        // borramos el directorio de la cache, recibe el directorio
     public static boolean deleteDir(File dir) {
         if (dir != null && dir.isDirectory()) {
             String[] children = dir.list();

@@ -12,6 +12,7 @@
     <string name="repetir">Repetir</string>
     <string name="service">servicio</string>
     <string name="acercaDe">Acerca de..</string>
-    <string name="desc_acercaDe">Esto bla, bla, bla, desarrollada en bla, bla, bla :v</string>
+    <string name="desc_acercaDe">Desarrollada: Leonardo Toxqui, Fernando Cerna, Misael Limón, Javier Yllescas, Saúl Hernández
+                Creditos especiales a Fernando Isidro</string>
     <string name="app_version"><a href="https://github.com/celli33/DictadosMusicalesApp">V.1.0.0</a></string>
 </resources>

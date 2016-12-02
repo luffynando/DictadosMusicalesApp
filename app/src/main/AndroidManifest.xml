@@ -16,7 +16,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".PlayingActivity"></activity>
+        <activity android:name=".PlayingActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.misa.dictadosmusicales.MainActivity"
+                />
+        </activity>
 
 
     </application>
