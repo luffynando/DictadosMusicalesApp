@@ -322,6 +322,7 @@ import java.util.ArrayList;
         } catch (Exception e) {
             mp.release();
         }
+       mp.release();
     }
 
     public String repetir()
