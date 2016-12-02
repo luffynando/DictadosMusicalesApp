@@ -19,26 +19,33 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 public class PlayingActivity extends AppCompatActivity {
-
+    // etiqueta para info en debug
     public final String DEBUG_TAG="info";
+    // objeto mediaPLayer para reproducir los ogg
     MediaPlayer mp;
+    // mensaje recibido por el intent anterior
     String message;
+    // textview para los resultados
     TextView textView;
+    // objeto que reproduce los dictados
     RepDictAsync reproduceDictad;
+    // variables para validar estados de reproducción
    static  int reproduciendo;
    static  Dictado d;
     static boolean bandRepetir;
     Toolbar toolbar;
+    // frame para el toolbar
     FrameLayout statusBar;
 
 
 
-
+    // inicializamos variables
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_playing);
-        Log.i("inf","iniciando segunda Activity");
+        Log.i(DEBUG_TAG,"iniciando segunda Activity");
+        //inicializamos el textView
         textView= (TextView)findViewById(R.id.respuesta_dictado);
         //obtenemos el intent de MainActivity
         Intent intent= getIntent();
@@ -49,13 +56,18 @@ public class PlayingActivity extends AppCompatActivity {
 
         // Ajustamos algunas cosas con el modo de orientacion y el statusBar y navigation bar
         navigationBarStatusBar();
-
+        //inicializmoas media player
         mp= new MediaPlayer();
+        // ponemos el textView con instrucciones
         textView.setText(getResources().getString(R.string.toque_para_rep));
+        // controlador del audio
         setVolumeControlStream(AudioManager.STREAM_MUSIC);
+        // no reproduciendo
         reproduciendo=0;
+        // creamos la asyncTask
         reproduceDictad= new RepDictAsync(textView, this);
         bandRepetir=false;
+        // inicializamos d, para que no esté vacío
         d= new DictadoDificil();
     }
 
@@ -69,7 +81,7 @@ public class PlayingActivity extends AppCompatActivity {
 
     // detiene servicios limpia cache y regresa el menú principal
     public void regresaPrincipal()
-    {
+    {      // si el asynctask no ha terminado lo detenemos
         if(reproduceDictad.getStatus()!=AsyncTask.Status.FINISHED)
             reproduceDictad.onCancelled();
         MainActivity.deleteCache(this);
@@ -89,32 +101,40 @@ public class PlayingActivity extends AppCompatActivity {
 
         switch (action) {
             case (MotionEvent.ACTION_DOWN): {
-                    Log.d("info","valor de reproduciendo "+ reproduciendo );
+                    Log.d(DEBUG_TAG,"valor de reproduciendo "+ reproduciendo );
+                // decimos en el textView que estamos reproduciendo
                 String dificultad= getResources().getString(R.string.texto_dificultad);
                 textView.setText(dificultad+" "+message);
+                //checamos que no se esté reproduciendo y si se va a repetir el dictado
                 if(bandRepetir && reproduciendo==0) {
+                    // ponemos el estado a reproduciendo
                     reproduciendo=1;
+                    // creamos el asyncTask
                     reproduceDictad= new RepDictAsync(textView,this,getString(R.string.repetir),d);
+                    // ejecutamos
                     reproduceDictad.execute();
                 }
+                // if si es fácil y no se está reproduccioend
                 if( message.compareTo(getString(R.string.facil))==0 && reproduciendo==0 ) {
                     reproduciendo=1;
                      reproduceDictad = new RepDictAsync(textView, this, message);
                     reproduceDictad.execute();
                 }
                 else
-                {   if(reproduciendo==0) {
+                {   // para dificil
+                    if(reproduciendo==0) {
                      reproduciendo=1;
                      reproduceDictad = new RepDictAsync(textView, this, message);
                      reproduceDictad.execute();
                     }
                 }
-
+                    // cuando termina de reproducir se pone reproduciendo a cero
                  if(AsyncTask.Status.FINISHED== reproduceDictad.getStatus()   )
                   { reproduciendo=0;
 
                   }
             }   return true;
+            // demás opciones
             case (MotionEvent.ACTION_MOVE):
                 Log.d(DEBUG_TAG, "La acción ha sido MOVER");
                 return true;
@@ -137,15 +157,17 @@ public class PlayingActivity extends AppCompatActivity {
         }
     }
 
+    // si presiona back
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_HOME) {
+            // regresamos al intent anterior
             regresaPrincipal();
         }
         return super.onKeyDown(keyCode,event);
     }
 
-
+    //sobreescribimos el metodo back
     @Override
     public void onBackPressed()
     {super.onBackPressed();
@@ -160,9 +182,10 @@ public class PlayingActivity extends AppCompatActivity {
         // Get support to the toolbar and change its title
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Modo: "+aux);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+       // getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
+    // bugs de vista en distintas versiones de Android
     public void navigationBarStatusBar() {
 
         // Arreglamos algunos bugs en portrait modo
@@ -204,19 +227,6 @@ public class PlayingActivity extends AppCompatActivity {
             }
         }
     }
-
-
-    /*@Override
-    public void onPause()
-    {super.onPause();
-       // if(reproduceDictad.getStatus()!=AsyncTask.Status.FINISHED)
-         //   reproduceDictad.onCancelled();
-       // Intent principal= new Intent(this,MainActivity.class);
-        //startActivity(principal);
-    }*/
-
-
-
 
 
 }

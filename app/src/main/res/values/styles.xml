@@ -14,4 +14,10 @@
         <item name="actionModeBackground">@color/c_indigo_500</item>
     </style>
 
+
+    <style name="popup_theme" parent="@android:style/Theme.Light">
+        <item name="android:windowBackground">@color/c_negro_1000</item>
+        <item name="android:colorBackground">@color/c_blanco_1000_10</item>
+    </style>
+
 </resources>
